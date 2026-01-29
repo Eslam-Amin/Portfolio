@@ -133,7 +133,7 @@ export const projects = [
   },
   {
     title: "Portfolio v1.0 (Legacy)",
-    date: "2023 - 2024",
+    date: "2024",
     tech: ["HTML/CSS", "JavaScript", "Bootstrap"],
     desc: "My original frontend-focused portfolio. Archived here to demonstrate my progression into backend engineering.",
     github: "https://github.com/Eslam-Amin/PersonalPortfolio",
