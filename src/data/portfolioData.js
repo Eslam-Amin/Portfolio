@@ -107,7 +107,15 @@ export const projects = [
     date: "2024",
     tech: ["Node.js", "Express", "MongoDB", "PayMob"],
     desc: "E-commerce solution for hair products. Key contribution involved upgrading the payment infrastructure from legacy iframes to Unified Checkout.",
-    link: "https://ocurls.com" // Used as generic link
+    link: "https://o-curls.com"
+  },
+  {
+    title: "Portfolio v1.0 (Legacy)",
+    date: "2024",
+    tech: ["HTML/CSS", "JavaScript", "Bootstrap"],
+    desc: "My original frontend-focused portfolio. Archived here to demonstrate my progression into backend engineering.",
+    github: "https://github.com/Eslam-Amin/PersonalPortfolio",
+    demo: "https://eslam-amin-portfolio.netlify.app/"
   },
   {
     title: "Social Network",
@@ -130,13 +138,5 @@ export const projects = [
     tech: ["Node.js", "MapBox", "Pug", "MongoDB"],
     desc: "Tour management application featuring geo-spatial data visualization. Integrated MapBox API to display tour locations.",
     github: "https://github.com/Eslam-Amin/Explorer-Enthusiast-Backend"
-  },
-  {
-    title: "Portfolio v1.0 (Legacy)",
-    date: "2024",
-    tech: ["HTML/CSS", "JavaScript", "Bootstrap"],
-    desc: "My original frontend-focused portfolio. Archived here to demonstrate my progression into backend engineering.",
-    github: "https://github.com/Eslam-Amin/PersonalPortfolio",
-    demo: "https://eslam-amin-portfolio.netlify.app/"
   }
 ];
