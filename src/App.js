@@ -25,6 +25,7 @@ import {
   Smartphone,
   Play
 } from "lucide-react";
+import { WhatsAppIcon } from "./assets/icons";
 
 const SectionTitle = ({ children }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -142,7 +143,7 @@ function App() {
               {personalData.summary}
             </p>
 
-            {/* NEW: Quick Contact Details */}
+            {/* Quick Contact Details */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8 text-sm font-mono text-slate-400">
               <div className="flex items-center gap-2">
                 <Mail size={16} className="text-green-400" />
@@ -154,19 +155,34 @@ function App() {
               </div>
             </div>
 
-            <div className="flex gap-4">
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-4 items-center">
+              {/* Primary Action: Solid Green */}
               <a
                 href="#projects"
-                className="px-6 py-3 bg-green-500 text-slate-900 font-mono font-bold rounded hover:bg-green-400 transition"
+                className="px-8 py-3 bg-green-500 text-slate-900 font-mono font-bold rounded hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]"
               >
                 View My Work
               </a>
+
+              {/* Secondary Action 1: Outline Green */}
               <a
                 href={`mailto:${personalData.email}`}
-                className="px-6 py-3 border border-green-500 text-green-400 font-mono rounded hover:bg-green-500/10 transition"
+                className="px-6 py-3 border border-green-500 text-green-400 font-mono font-bold rounded hover:bg-green-500/10 transition"
               >
                 Contact Me
               </a>
+
+              {/* Secondary Action 2: Outline Green */}
+              {/* <a
+                href={personalData.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 border border-green-500 text-green-400 font-mono font-bold rounded hover:bg-green-500/10 transition flex items-center gap-2"
+              >
+                <WhatsAppIcon size={20} />
+                <span>WhatsApp</span>
+              </a> */}
             </div>
           </div>
         </section>
