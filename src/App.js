@@ -207,6 +207,37 @@ function App() {
           </div>
         </section>
 
+        {/* Education Section */}
+        <section className="mb-24">
+          <SectionTitle>cat education.txt</SectionTitle>
+          <div className="bg-slate-800/50 p-6 rounded border border-slate-700 flex items-start gap-6">
+            <div className="p-4 bg-green-500/10 rounded-lg text-green-400 hidden sm:block">
+              <GraduationCap size={40} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-white mb-2">
+                {education.school}
+              </h3>
+              <p className="text-xl text-green-400 font-mono mb-2">
+                {education.degree}
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono text-slate-500 mb-4">
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                  {education.duration}
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                  GPA: {education.gpa}
+                </span>
+              </div>
+              <p className="text-slate-400 leading-relaxed">
+                {education.details}
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Projects Section */}
         <section id="projects" className="mb-24">
           <SectionTitle>ls ./projects</SectionTitle>
