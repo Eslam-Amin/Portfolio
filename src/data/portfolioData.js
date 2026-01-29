@@ -66,62 +66,71 @@ export const experience = [
 export const projects = [
   {
     title: "Event Management API",
+    date: "2025",
     tech: ["Go", "Gin", "MySQL", "JWT"],
     desc: "A lightweight REST API for managing event lifecycles. Users can register/cancel attendance and perform full CRUD operations. Built using Go Modules for dependency management.",
     github: "https://github.com/Eslam-Amin/Event-Management-Api"
   },
   {
     title: "Car Selling API",
+    date: "2025",
     tech: ["NestJS", "TypeORM", "MySQL", "Redis"],
     desc: "Comprehensive REST API for car sales reports. Features In-Memory caching for speed, extensive Unit/E2E testing, and a modular architecture using NestJS.",
     github: "https://github.com/Eslam-Amin/Car-Selling-Api"
   },
   {
     title: "Restaurant Management API",
+    date: "2025",
     tech: ["NestJS", "MongoDB", "Swagger"],
     desc: "A scalable system for managing restaurants and user data. Fully documented using Swagger UI for easy frontend integration.",
     github: "https://github.com/Eslam-Amin/Restaurant-Management-Api"
   },
   {
     title: "OneFurever",
+    date: "Aug 2024 - June 2025",
     tech: ["Node.js", "Socket.io", "Firebase", "PayMob"],
     desc: "A community platform for pet owners offering real-time chat and services. Integrated Firebase for push notifications and PayMob for secure transactions.",
     link: "https://onefurever.com"
   },
   {
     title: "HAJJO E-Commerce",
+    date: "July 2024 - Sep 2024",
     tech: ["Node.js", "Express", "Redis", "PayMob"],
     desc: "Backend server built from scratch for a suits e-commerce brand. Implemented Redis caching to optimize product retrieval speeds and integrated local payment gateways."
   },
   {
     title: "o'Curls",
+    date: "2024",
     tech: ["Node.js", "Express", "MongoDB", "PayMob"],
     desc: "E-commerce solution for hair products. Key contribution involved upgrading the payment infrastructure from legacy iframes to a modern Unified Checkout with PayMob.",
-    link: "https://ocurls.com"
+    link: "https://www.o-curls.com/"
   },
   {
     title: "Social Network",
+    date: "2024",
     tech: ["MERN Stack", "Socket.io", "ContextAPI"],
     desc: "A social platform mimicking the classic Facebook experience. Features real-time messaging using Socket.io and a reactive frontend built with ContextAPI.",
-    github: "https://github.com/Eslam-Amin/Social-Network-Backend",
-    link: "https://social-network-mern.netlify.app"
+    github: "https://github.com/Eslam-Amin/Social-Network-Backend"
   },
   {
     title: "Market Backend Service",
+    date: "2024",
     tech: ["Node.js", "MySQL", "MongoDB", "JWT"],
     desc: "A complex system managing branches, cashiers, and receipts. Demonstrates ability to work with hybrid database architectures (SQL & NoSQL) simultaneously.",
     github: "https://github.com/Eslam-Amin/Market-Backend"
   },
   {
     title: "Explorer Enthusiast",
+    date: "2024",
     tech: ["Node.js", "MapBox", "Pug", "MongoDB"],
     desc: "Tour management application featuring geo-spatial data visualization. Integrated MapBox API to display tour locations on interactive maps.",
     github: "https://github.com/Eslam-Amin/Explorer-Enthusiast-Backend"
   },
   {
     title: "Portfolio v1.0 (Legacy)",
+    date: "2024",
     tech: ["HTML/CSS", "JavaScript", "Bootstrap"],
-    desc: "My original portfolio website. Kept here to demonstrate my progression as a developer and my history with frontend technologies.",
+    desc: "My original frontend-focused portfolio. Archived here to demonstrate my progression into backend engineering.",
     link: "https://eslam-amin-portfolio.netlify.app/"
   }
 ];
