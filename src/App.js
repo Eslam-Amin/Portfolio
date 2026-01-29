@@ -282,48 +282,60 @@ function App() {
         {/* Projects Section */}
         <section id="projects" className="mb-24">
           <SectionTitle>ls ./projects</SectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project, idx) => (
               <div
                 key={idx}
-                className="group bg-slate-800 p-6 rounded hover:-translate-y-2 transition duration-300 border border-transparent hover:border-green-500/30"
+                className="group bg-slate-800/50 p-8 rounded-lg hover:-translate-y-2 transition duration-300 border border-slate-700 hover:border-green-500/30 flex flex-col"
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-green-400">
-                    <Code size={40} />
+                {/* 1. Header: Icon & Links */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="text-green-400 group-hover:text-green-300 transition">
+                    <Code size={40} strokeWidth={1.5} />
                   </div>
+
                   <div className="flex gap-4 text-slate-400">
-                    {/* GitHub Link */}
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-green-400"
+                        className="hover:text-green-400 transition"
                       >
-                        <Github size={20} />
+                        <Github size={22} />
                       </a>
                     )}
-                    {/* Live Demo Link */}
                     {project.link && (
                       <a
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-green-400"
+                        className="hover:text-green-400 transition"
                       >
-                        <ExternalLink size={20} />
+                        <ExternalLink size={22} />
                       </a>
                     )}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition">
+
+                {/* 2. Title */}
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition">
                   {project.title}
                 </h3>
-                <p className="text-slate-400 text-sm mb-4">{project.desc}</p>
-                <div className="flex flex-wrap gap-2 mt-auto">
+
+                {/* 3. Description */}
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {project.desc}
+                </p>
+
+                {/* 4. Tech Stack */}
+                <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-700/50">
                   {project.tech.map((t) => (
-                    <span key={t} className="text-xs font-mono text-green-300">
+                    <span
+                      key={t}
+                      className="text-xs font-mono text-green-300/80 bg-green-900/10 px-2 py-1 rounded"
+                    >
                       {t}
                     </span>
                   ))}
