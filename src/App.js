@@ -20,7 +20,10 @@ import {
   ExternalLink,
   GraduationCap,
   Cpu,
-  MapPin
+  MapPin,
+  Globe,
+  Smartphone,
+  Play
 } from "lucide-react";
 
 const SectionTitle = ({ children }) => {
@@ -287,49 +290,92 @@ function App() {
             {projects.map((project, idx) => (
               <div
                 key={idx}
-                className="group bg-slate-800/50 p-8 rounded-lg hover:-translate-y-2 transition duration-300 border border-slate-700 hover:border-green-500/30 flex flex-col"
+                className="group bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-green-500/30 flex flex-col transition duration-300"
               >
-                {/* 1. Header: Icon & Links */}
-                <div className="flex justify-between items-start mb-6">
+                {/* ROW 1: Icon & Links */}
+                <div className="flex justify-between items-start mb-4">
+                  {/* Icon */}
                   <div className="text-green-400 group-hover:text-green-300 transition">
-                    <Code size={40} strokeWidth={1.5} />
+                    <div className="p-2 rounded-md bg-slate-900/50 border border-slate-700/50">
+                      <Code size={28} />
+                    </div>
                   </div>
 
-                  <div className="flex gap-4 text-slate-400">
+                  {/* Links Row - Now handles GitHub, Demo, and App Stores */}
+                  <div className="flex gap-3 text-slate-400">
+                    {/* 1. GitHub Repo */}
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-green-400 transition"
+                        className="hover:text-green-400 transition bg-slate-900/50 p-2 rounded-full hover:bg-slate-900 border border-transparent hover:border-green-500/30"
+                        title="View Code"
                       >
-                        <Github size={22} />
+                        <Github size={18} />
                       </a>
                     )}
-                    {project.link && (
+
+                    {/* 2. Live Website / Demo */}
+                    {(project.demo || project.link) && (
                       <a
-                        href={project.link}
+                        href={project.demo || project.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-green-400 transition"
+                        className="hover:text-blue-400 transition bg-slate-900/50 p-2 rounded-full hover:bg-slate-900 border border-transparent hover:border-blue-500/30"
+                        title="Live Demo"
                       >
-                        <ExternalLink size={22} />
+                        <Globe size={18} />
+                      </a>
+                    )}
+
+                    {/* 3. Google Play */}
+                    {project.googlePlay && (
+                      <a
+                        href={project.googlePlay}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-green-400 transition bg-slate-900/50 p-2 rounded-full hover:bg-slate-900 border border-transparent hover:border-green-500/30"
+                        title="Google Play"
+                      >
+                        <Play size={18} />
+                      </a>
+                    )}
+
+                    {/* 4. App Store */}
+                    {project.appStore && (
+                      <a
+                        href={project.appStore}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-purple-400 transition bg-slate-900/50 p-2 rounded-full hover:bg-slate-900 border border-transparent hover:border-purple-500/30"
+                        title="App Store"
+                      >
+                        <Smartphone size={18} />
                       </a>
                     )}
                   </div>
                 </div>
 
-                {/* 2. Title */}
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-green-400 transition">
-                  {project.title}
-                </h3>
+                {/* ROW 2: Title & Date */}
+                <div className="flex flex-col md:flex-row md:justify-between md:items-baseline gap-2 mb-3">
+                  <h3 className="text-xl font-bold text-white group-hover:text-green-400 transition">
+                    {project.title}
+                  </h3>
+                  <span className="text-xs font-mono text-slate-500 whitespace-nowrap">
+                    <span className="mr-2 text-slate-700 hidden md:inline">
+                      __
+                    </span>
+                    {project.date}
+                  </span>
+                </div>
 
-                {/* 3. Description */}
-                <p className="text-slate-400 leading-relaxed mb-6">
+                {/* Description */}
+                <p className="text-slate-400 leading-relaxed mb-6 text-sm md:text-base">
                   {project.desc}
                 </p>
 
-                {/* 4. Tech Stack */}
+                {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-slate-700/50">
                   {project.tech.map((t) => (
                     <span
