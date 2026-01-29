@@ -24,6 +24,7 @@ export const skills = {
   languages: ["Go (Golang)", "TypeScript", "JavaScript (ES6+)", "SQL"],
   frameworks: ["NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
   databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+  tools: ["Docker", "Kafka", "Git/GitHub", "CI/CD", "Socket.io", "Swagger"],
   concepts: [
     "Data Structures",
     "Algorithms",
@@ -32,15 +33,6 @@ export const skills = {
     "System Design",
     "Unit Testing (Jest)",
     "Microservices Architecture"
-  ],
-  tools: [
-    "Docker",
-    "Kafka",
-    "Git/GitHub",
-    "CI/CD",
-    "Socket.io",
-    "GraphQL",
-    "Swagger"
   ]
 };
 
@@ -51,7 +43,7 @@ export const experience = [
     duration: "June 2025 - Nov 2025",
     type: "Hybrid",
     description:
-      "Developing a Social Media Listening Tool using MERN Stack and NestJS. Enhanced tool performance, fixed production issues, and assisted in tool rebranding."
+      "Developed a Social Media Listening Tool using MERN Stack and NestJS. Focused on enhancing tool performance, resolving critical production issues, and assisting in the complete rebranding of the tool's architecture."
   },
   {
     company: "Amwal",
@@ -59,7 +51,7 @@ export const experience = [
     duration: "Mar 2025 - Apr 2025",
     type: "Remote",
     description:
-      "Developed Supply Chain Finance services. Migrated raw MySQL queries to TypeORM, implemented class-validator, and collaborated on JWT security enhancements."
+      "Built a Supply Chain Finance service. Successfully migrated legacy raw MySQL queries to TypeORM repositories for maintainability. Implemented class-validator for strict HTTP request validation and collaborated on security enhancements using JWT."
   },
   {
     company: "Neon",
@@ -67,7 +59,7 @@ export const experience = [
     duration: "May 2024 - June 2025",
     type: "On-Site",
     description:
-      "Built scalable web apps for E-Commerce and E-Learning. Optimized MongoDB/MySQL indexing to reduce latency. Debugged and resolved errors in existing codebases."
+      "Developed scalable web applications for E-Commerce and E-Learning platforms. Optimized database performance by indexing MongoDB and MySQL queries, significantly reducing system latency. Debugged and resolved complex errors to ensure platform stability."
   }
 ];
 
@@ -75,55 +67,61 @@ export const projects = [
   {
     title: "Event Management API",
     tech: ["Go", "Gin", "MySQL", "JWT"],
-    desc: "Lightweight REST API for event registration and CRUD operations. Built with Go Modules.",
-    github: "#"
+    desc: "A lightweight REST API for managing event lifecycles. Users can register/cancel attendance and perform full CRUD operations. Built using Go Modules for dependency management.",
+    github: "https://github.com/Eslam-Amin/Event-Management-Api"
   },
   {
     title: "Car Selling API",
     tech: ["NestJS", "TypeORM", "MySQL", "Redis"],
-    desc: "Comprehensive REST API for car sales. Features In-Memory caching, Unit Testing, and e2e Testing.",
-    github: "#"
+    desc: "Comprehensive REST API for car sales reports. Features In-Memory caching for speed, extensive Unit/E2E testing, and a modular architecture using NestJS.",
+    github: "https://github.com/Eslam-Amin/Car-Selling-Api"
   },
   {
     title: "Restaurant Management API",
     tech: ["NestJS", "MongoDB", "Swagger"],
-    desc: "Lightweight REST API for managing restaurants and users, documented with Swagger.",
-    github: "#"
+    desc: "A scalable system for managing restaurants and user data. Fully documented using Swagger UI for easy frontend integration.",
+    github: "https://github.com/Eslam-Amin/Restaurant-Management-Api"
   },
   {
     title: "OneFurever",
     tech: ["Node.js", "Socket.io", "Firebase", "PayMob"],
-    desc: "Real-time community app for pet owners. Features live chat, push notifications, and payment integration.",
-    link: "#"
+    desc: "A community platform for pet owners offering real-time chat and services. Integrated Firebase for push notifications and PayMob for secure transactions.",
+    link: "https://onefurever.com"
   },
   {
     title: "HAJJO E-Commerce",
     tech: ["Node.js", "Express", "Redis", "PayMob"],
-    desc: "Backend for a suits e-commerce platform. Implemented Redis caching to enhance performance mechanism.",
-    link: "#"
+    desc: "Backend server built from scratch for a suits e-commerce brand. Implemented Redis caching to optimize product retrieval speeds and integrated local payment gateways."
   },
   {
     title: "o'Curls",
     tech: ["Node.js", "Express", "MongoDB", "PayMob"],
-    desc: "Curly hair products e-commerce. Migrated legacy iframe payments to Unified Checkout with PayMob.",
-    link: "#"
+    desc: "E-commerce solution for hair products. Key contribution involved upgrading the payment infrastructure from legacy iframes to a modern Unified Checkout with PayMob.",
+    link: "https://ocurls.com"
   },
   {
     title: "Social Network",
     tech: ["MERN Stack", "Socket.io", "ContextAPI"],
-    desc: "Facebook clone with real-time messaging. Mimics older FB UI with modern backend architecture.",
-    github: "#"
+    desc: "A social platform mimicking the classic Facebook experience. Features real-time messaging using Socket.io and a reactive frontend built with ContextAPI.",
+    github: "https://github.com/Eslam-Amin/Social-Network-Backend",
+    link: "https://social-network-mern.netlify.app"
   },
   {
     title: "Market Backend Service",
     tech: ["Node.js", "MySQL", "MongoDB", "JWT"],
-    desc: "Hybrid database system (SQL & NoSQL) for managing branches, cashiers, products, and receipts.",
-    github: "#"
+    desc: "A complex system managing branches, cashiers, and receipts. Demonstrates ability to work with hybrid database architectures (SQL & NoSQL) simultaneously.",
+    github: "https://github.com/Eslam-Amin/Market-Backend"
   },
   {
     title: "Explorer Enthusiast",
     tech: ["Node.js", "MapBox", "Pug", "MongoDB"],
-    desc: "Tour management app. Integrated MapBox for displaying tour locations and geo-data.",
-    github: "#"
+    desc: "Tour management application featuring geo-spatial data visualization. Integrated MapBox API to display tour locations on interactive maps.",
+    github: "https://github.com/Eslam-Amin/Explorer-Enthusiast-Backend"
+  },
+  {
+    title: "Portfolio v1.0 (Legacy)",
+    tech: ["HTML/CSS", "JavaScript", "Bootstrap"],
+    desc: "My original portfolio website. Kept here to demonstrate my progression as a developer and my history with frontend technologies.",
+    link: "https://eslam-amin-portfolio.netlify.app/"
   }
 ];
