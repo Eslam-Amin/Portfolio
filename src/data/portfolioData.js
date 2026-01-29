@@ -7,7 +7,7 @@ export const personalData = {
   phone: "+201099007326",
   address: "Cairo, Egypt",
   github: "https://github.com/Eslam-Amin",
-  linkedin: "https://linkedin.com/in/eslamamin-dev",
+  linkedin: "https://linkedin.com/in/eslam-amin",
   summary:
     "Backend Developer with ~2 years of experience building scalable, high-performance systems. Skilled in Node.js, NestJS, Go, SQL, and MongoDB. Proven track record in fintech, e-commerce, and social media solutions."
 };
