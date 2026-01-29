@@ -260,6 +260,15 @@ function App() {
             ))}
           </div>
         </section>
+
+        {/* Footer */}
+        <footer className="text-center text-slate-600 py-8 text-sm font-mono">
+          <p className="mb-2">Built with React.js & Tailwind</p>
+          <p>
+            Designed by <span className="text-green-400">Eslam Amin</span> and{" "}
+            <span className="text-blue-400">Gemini</span>
+          </p>
+        </footer>
       </main>
     </div>
   );
