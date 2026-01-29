@@ -23,7 +23,7 @@ export const education = {
 
 export const skills = {
   languages: ["Go (Golang)", "TypeScript", "JavaScript (ES6+)", "SQL"],
-  frameworks: ["NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
+  frameworks: ["Node.js","NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
   databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
   tools: ["Docker", "Kafka", "Git/GitHub", "CI/CD", "Socket.io", "Swagger"],
   concepts: [
