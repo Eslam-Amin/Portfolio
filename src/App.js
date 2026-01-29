@@ -25,7 +25,7 @@ import {
   Smartphone,
   Play
 } from "lucide-react";
-import { WhatsAppIcon } from "./assets/icons";
+// import { WhatsAppIcon } from "./assets/icons";
 
 const SectionTitle = ({ children }) => {
   const [displayedText, setDisplayedText] = useState("");
@@ -64,24 +64,28 @@ const SectionTitle = ({ children }) => {
   }, [isVisible, displayedText, children]);
 
   return (
-    <h2
-      ref={elementRef}
-      className="text-2xl font-mono font-bold text-green-400 mb-6 flex items-center min-h-[40px]"
-    >
-      {/* The Static Prompt (Always visible) */}
-      <span className="text-purple-500 mr-2">root@eslam:~$</span>
+    <div ref={elementRef} className="mb-8">
+      <h2 className="font-mono font-bold text-green-400 flex flex-wrap items-center">
+        {/* 1. Prompt: "root@eslam:~$" 
+            - Mobile: text-lg (18px) -> Bigger, more readable
+            - Laptop: text-2xl (24px) -> Classic size
+        */}
+        <span className="text-purple-500 mr-2 whitespace-nowrap text-lg md:text-2xl">
+          root@eslam:~$
+        </span>
 
-      {/* The Typed Command */}
-      <span>{displayedText}</span>
-
-      {/* The Blinking Cursor */}
-      <span
-        className="ml-1 animate-pulse text-green-500 font-black"
-        style={{ animationDuration: "0.7s" }}
-      >
-        _
-      </span>
-    </h2>
+        {/* 2. Command + Cursor Wrapper */}
+        <span className="text-lg md:text-2xl break-all">
+          {displayedText}
+          <span
+            className="ml-1 animate-pulse text-green-500 font-black inline-block"
+            style={{ animationDuration: "0.75s" }}
+          >
+            _
+          </span>
+        </span>
+      </h2>
+    </div>
   );
 };
 
