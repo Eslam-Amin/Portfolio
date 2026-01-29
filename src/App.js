@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   personalData,
   skills,
@@ -23,22 +23,63 @@ import {
   MapPin
 } from "lucide-react";
 
-const SectionTitle = ({ children }) => (
-  <h2 className="text-2xl font-mono font-bold text-green-400 mb-6 flex items-center">
-    <span className="text-purple-500 mr-2">root@eslam:~$</span>
-    {children}
+const SectionTitle = ({ children }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef(null);
 
-    {/* The Fast Flashing Cursor */}
-    <span
-      className="ml-1 animate-pulse text-green-500 font-black"
-      style={{
-        animationDuration: "0.8s"
-      }} /* Change this number to make it faster/slower */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible && displayedText.length < children.length) {
+      const timeoutId = setTimeout(() => {
+        setDisplayedText(children.slice(0, displayedText.length + 1));
+      }, 75); // Typing speed (lower is faster)
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isVisible, displayedText, children]);
+
+  return (
+    <h2
+      ref={elementRef}
+      className="text-2xl font-mono font-bold text-green-400 mb-6 flex items-center min-h-[40px]"
     >
-      _
-    </span>
-  </h2>
-);
+      {/* The Static Prompt (Always visible) */}
+      <span className="text-purple-500 mr-2">root@eslam:~$</span>
+
+      {/* The Typed Command */}
+      <span>{displayedText}</span>
+
+      {/* The Blinking Cursor */}
+      <span
+        className="ml-1 animate-pulse text-green-500 font-black"
+        style={{ animationDuration: "0.7s" }}
+      >
+        _
+      </span>
+    </h2>
+  );
+};
 
 function App() {
   const [activeTab, setActiveTab] = useState("all");
