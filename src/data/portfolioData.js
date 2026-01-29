@@ -131,13 +131,13 @@ export const projects = [
     date: "2024",
     tech: ["Node.js", "MySQL", "MongoDB", "JWT"],
     desc: "A complex system managing branches, cashiers, and receipts. Demonstrates ability to work with hybrid database architectures (SQL & NoSQL).",
-    github: "https://github.com/Eslam-Amin/Market-Backend"
+    github: "https://github.com/Eslam-Amin/Market"
   },
   {
     title: "Explorer Enthusiast",
     date: "2024",
     tech: ["Node.js", "MapBox", "Pug", "MongoDB"],
     desc: "Tour management application featuring geo-spatial data visualization. Integrated MapBox API to display tour locations.",
-    github: "https://github.com/Eslam-Amin/Explorer-Enthusiast-Backend"
+    github: "https://github.com/Eslam-Amin/Explorer-Enthusiast"
   }
 ];
