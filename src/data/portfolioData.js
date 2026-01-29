@@ -123,7 +123,7 @@ export const projects = [
     date: "2024",
     tech: ["MERN Stack", "Socket.io", "ContextAPI"],
     desc: "A social platform mimicking the classic Facebook experience. Features real-time messaging using Socket.io and a reactive frontend.",
-    github: "https://github.com/Eslam-Amin/Social-Network-Backend",
+    github: "https://github.com/Eslam-Amin/SocialNetworkBackend",
     demo: "https://social-network-mern.netlify.app"
   },
   {
