@@ -49,20 +49,20 @@ export const experience = [
       "Developed a Social Media Listening Tool using MERN Stack and NestJS. Focused on enhancing tool performance, resolving critical production issues, and assisting in the complete rebranding of the tool's architecture."
   },
   {
-    company: "Amwal",
-    role: "Backend Developer",
-    duration: "Mar 2025 - Apr 2025",
-    type: "Remote",
-    description:
-      "Built a Supply Chain Finance service. Successfully migrated legacy raw MySQL queries to TypeORM repositories for maintainability. Implemented class-validator for strict HTTP request validation and collaborated on security enhancements using JWT."
-  },
-  {
     company: "Neon",
     role: "Backend Developer",
     duration: "May 2024 - June 2025",
     type: "On-Site",
     description:
       "Developed scalable web applications for E-Commerce and E-Learning platforms. Optimized database performance by indexing MongoDB and MySQL queries, significantly reducing system latency. Debugged and resolved complex errors to ensure platform stability."
+  },
+  {
+    company: "Amwal",
+    role: "Backend Developer",
+    duration: "Mar 2025 - Apr 2025",
+    type: "Remote",
+    description:
+      "Built a Supply Chain Finance service. Successfully migrated legacy raw MySQL queries to TypeORM repositories for maintainability. Implemented class-validator for strict HTTP request validation and collaborated on security enhancements using JWT."
   }
 ];
 
