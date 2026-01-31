@@ -8,6 +8,8 @@ export const personalData = {
   address: "Cairo, Egypt",
   github: "https://github.com/Eslam-Amin",
   linkedin: "https://linkedin.com/in/eslamamin-dev",
+  cvLink:
+    "https://drive.google.com/file/d/1k-uifqDxHyor4GBqlTioWeK1QKeCpX0A/view?usp=sharing",
   whatsapp: "https://wa.me/201099007326",
   summary:
     "Backend Developer with ~2 years of experience building scalable, high-performance systems. Skilled in Node.js, NestJS, Go, SQL, and MongoDB. Proven track record in fintech, e-commerce, and social media solutions."
@@ -23,7 +25,7 @@ export const education = {
 
 export const skills = {
   languages: ["Go (Golang)", "TypeScript", "JavaScript (ES6+)", "SQL"],
-  frameworks: ["Node.js","NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
+  frameworks: ["Node.js", "NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
   databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
   tools: ["Docker", "Kafka", "Git/GitHub", "CI/CD", "Socket.io", "Swagger"],
   concepts: [

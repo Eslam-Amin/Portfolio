@@ -24,7 +24,8 @@ import {
   MapPin,
   Globe,
   Smartphone,
-  Play
+  Play,
+  FileText
 } from "lucide-react";
 // import { WhatsAppIcon } from "./assets/icons";
 
@@ -118,6 +119,14 @@ function App() {
               className="hover:text-white transition"
             >
               <Linkedin size={20} />
+            </a>
+            <a
+              href={personalData.cvLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition"
+            >
+              <FileText size={20} />
             </a>
           </div>
         </div>
