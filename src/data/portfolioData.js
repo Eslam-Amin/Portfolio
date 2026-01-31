@@ -20,7 +20,8 @@ export const education = {
   degree: "Bachelor's Degree in Computer Science",
   duration: "2018 - 2022",
   gpa: "3.69/4",
-  details: "Graduated with a focus on Software Engineering and Data Structures."
+  details:
+    "Ranked 4th in the batch. Graduated with a focus on Software Engineering and Data Structures."
 };
 
 export const skills = {
