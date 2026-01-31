@@ -1,5 +1,5 @@
-import "./App.css";
 // src/App.js
+import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import {
   personalData,
@@ -14,11 +14,9 @@ import {
   Linkedin,
   Mail,
   Phone,
-  Terminal,
   Database,
   Server,
   Code,
-  ExternalLink,
   GraduationCap,
   Cpu,
   MapPin,
@@ -92,7 +90,7 @@ const SectionTitle = ({ children }) => {
 };
 
 function App() {
-  const [activeTab, setActiveTab] = useState("all");
+  // const [activeTab, setActiveTab] = useState("all");
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 font-sans selection:bg-green-500 selection:text-black">
