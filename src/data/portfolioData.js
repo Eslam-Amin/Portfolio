@@ -69,6 +69,27 @@ export const experience = [
 
 export const projects = [
   {
+    title: "SkyDrop (Node.js)",
+    desc: "Real-time drone delivery backend handling order dispatching and live geospatial tracking. Implemented websocket communication for sub-second telemetry updates between drones and the control center.",
+    tech: [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Prisma",
+      "Express",
+      "Docker"
+    ],
+    github: "https://github.com/Eslam-Amin/drone-delivery-backend-node.js",
+    date: "2026"
+  },
+  {
+    title: "SkyDrop Core (Go Replica)",
+    desc: "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
+    tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker"],
+    github: "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
+    date: "2026"
+  },
+  {
     title: "Event Management API",
     date: "2025",
     tech: ["Go", "Gin", "MySQL", "JWT"],
