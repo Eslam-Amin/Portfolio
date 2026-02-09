@@ -70,8 +70,7 @@ export const experience = [
 export const projects = [
   {
     title: "SkyDrop (Node.js)",
-    desc: "Real-time drone delivery backend handling order dispatching and live geospatial tracking. Implemented websocket communication for sub-second telemetry updates between drones and the control center.",
-    tech: [
+desc: "Backend service for drone delivery management built with a RESTful architecture. Features complex database modeling for Orders, Drones, and Users, ensuring data integrity through Prisma ORM relations.",    tech: [
       "Node.js",
       "TypeScript",
       "PostgreSQL",
