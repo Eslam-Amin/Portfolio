@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# 🚀 Personal Portfolio | Eslam Amin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img width="1825" height="746" alt="image" src="https://github.com/user-attachments/assets/7c97c896-089c-479f-bc26-e826741bf3fb" />
+A modern, responsive personal portfolio website built to showcase my projects, skills, and experience as a **Backend Engineer**. 
 
-## Available Scripts
+Designed with a focus on clean UI/UX, performance, and accessibility.
 
-In the project directory, you can run:
+## 🔗 Live Demo
+**[Visit Portfolio](https://eslam-amin.github.io/Portfolio/)**
 
-### `npm start`
+## 🛠️ Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* **Frontend:** [React.js](https://reactjs.org/)
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+* **Icons:** [Lucide React](https://lucide.dev/)
+* **Deployment:** GitHub Pages
+* **Package Manager:** npm
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Features
 
-### `npm test`
+* **Responsive Design:** Fully optimized for Desktop, Tablet, and Mobile devices.
+* **Dynamic Project Showcase:** Filterable project cards with links to GitHub, Live Demos, and App Stores.
+* **Interactive UI:** Hover effects, smooth scrolling, and modern glassmorphism elements.
+* **Optimized Assets:** Custom SVG favicon and efficient asset loading.
+* **Clean Code Structure:** Component-based architecture for easy maintenance.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📂 Project Structure
 
-### `npm run build`
+```bash
+src/
+├── components/       # Reusable UI components (Navbar, ProjectCard, etc.)
+├── data/            # Static data files (portfolioData.js, skills.js)
+├── index.css        # Tailwind directives and global styles
+├── App.js           # Main application layout
+└── index.js         # Entry point
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🚀 Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run this project locally on your machine:
 
-### `npm run eject`
+### 1. Clone the repository
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone [https://github.com/Eslam-Amin/Portfolio.git](https://github.com/Eslam-Amin/Portfolio.git)
+cd Portfolio
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Install Dependencies
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm install
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 3. Start the Development Server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
 
-### Code Splitting
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) to view it in your browser.
 
-### Analyzing the Bundle Size
+## 📦 Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+This project is configured for **GitHub Pages**.
 
-### Making a Progressive Web App
+To deploy updates:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Commit your changes:
+```bash
+git add .
+git commit -m "Update portfolio content"
+git push origin main
 
-### Advanced Configuration
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+2. Run the deploy script:
+```bash
+npm run deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## 📬 Contact
+
+**Eslam Amin** - Backend Engineer
+
+---
+
+© 2026 Eslam Amin. All Rights Reserved.
+
+
