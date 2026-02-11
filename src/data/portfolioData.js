@@ -81,7 +81,7 @@ export const experience = [
 
 export const projects = [
   {
-    title: "SkyDrop Core (Go Replica)",
+    title: "SkyDrop (Go Replica)",
     desc: "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
     tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker", "Docker Compose"],
     github: "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
