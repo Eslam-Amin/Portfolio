@@ -68,6 +68,13 @@ export const experience = [
 ];
 
 export const projects = [
+   {
+    title: "SkyDrop Core (Go Replica)",
+    desc: "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
+    tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker"],
+    github: "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
+    date: "2026"
+  },
   {
     title: "SkyDrop (Node.js)",
 desc: "Backend service for drone delivery management built with a RESTful architecture. Features complex database modeling for Orders, Drones, and Users, ensuring data integrity through Prisma ORM relations.",    tech: [
@@ -79,13 +86,6 @@ desc: "Backend service for drone delivery management built with a RESTful archit
       "Docker"
     ],
     github: "https://github.com/Eslam-Amin/drone-delivery-backend-node.js",
-    date: "2026"
-  },
-  {
-    title: "SkyDrop Core (Go Replica)",
-    desc: "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
-    tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker"],
-    github: "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
     date: "2026"
   },
   {
