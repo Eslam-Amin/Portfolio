@@ -96,7 +96,8 @@ export const projects = [
       "PostgreSQL",
       "Prisma",
       "Express",
-      "Docker"
+      "Docker",
+      "Docker Compose"
     ],
     github: "https://github.com/Eslam-Amin/drone-delivery-backend-node.js",
     date: "2026"
