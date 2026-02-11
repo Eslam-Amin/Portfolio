@@ -96,6 +96,7 @@ export const projects = [
       "PostgreSQL",
       "Prisma",
       "Express",
+      "Jest",
       "Docker",
       "Docker Compose"
     ],
