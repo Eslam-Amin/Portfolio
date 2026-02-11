@@ -25,17 +25,29 @@ export const education = {
 };
 
 export const skills = {
-  languages: ["Go (Golang)", "TypeScript", "JavaScript (ES6+)", "SQL"],
-  frameworks: ["Node.js", "NestJS", "Express.js", "Gin", "ReactJS (Basics)"],
+  languages: ["TypeScript", "JavaScript (ES6+)", "Go (Golang)", "SQL"],
+  frameworks: ["Node.js", "NestJS", "Express.js", "Gin", "ReactJS"],
   databases: ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
-  tools: ["Docker", "Kafka", "Git/GitHub", "CI/CD", "Socket.io", "Swagger"],
+  tools: [
+    "Docker",
+    "Kafka",
+    "Prisma",
+    "TypeORM",
+    "GORM",
+    "Jest",
+    "Supertest",
+    "Git/GitHub",
+    "CI/CD",
+    "Swagger",
+    "Jenkins"
+  ],
   concepts: [
     "Data Structures",
     "Algorithms",
     "SOLID Principles",
     "Design Patterns",
     "System Design",
-    "Unit Testing (Jest)",
+    "Unit Testing",
     "Microservices Architecture"
   ]
 };
@@ -68,16 +80,17 @@ export const experience = [
 ];
 
 export const projects = [
-   {
+  {
     title: "SkyDrop Core (Go Replica)",
     desc: "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
-    tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker"],
+    tech: ["Golang", "Gin", "PostgreSQL", "GORM", "Docker", "Docker Compose"],
     github: "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
     date: "2026"
   },
   {
     title: "SkyDrop (Node.js)",
-desc: "Backend service for drone delivery management built with a RESTful architecture. Features complex database modeling for Orders, Drones, and Users, ensuring data integrity through Prisma ORM relations.",    tech: [
+    desc: "Backend service for drone delivery management built with a RESTful architecture. Features complex database modeling for Orders, Drones, and Users, ensuring data integrity through Prisma ORM relations.",
+    tech: [
       "Node.js",
       "TypeScript",
       "PostgreSQL",
