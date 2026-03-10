@@ -54,6 +54,14 @@ export const skills = {
 
 export const experience = [
   {
+    company: "OneFurever",
+    role: "Backend Developer",
+    duration: "Dec 2025 - Present",
+    type: "Remote",
+    description:
+      "Leading the architectural refactoring of a pet-focused social media platform, migrating from traditional routes to a Modular Architecture. Enhanced system performance and reliability by implementing a dedicated Service Layer to decouple business logic from controllers."
+  },
+  {
     company: "AIM Technologies",
     role: "Software Engineer",
     duration: "June 2025 - Nov 2025",
