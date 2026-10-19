@@ -230,3 +230,21 @@ exports.createExperience = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Update a work experience entry
+// @route   PUT /api/experience/:id
+exports.updateExperience = async (req, res) => {
+  try {
+    const experience = await Experience.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!experience) {
+      return res.status(404).json({ message: "Experience entry not found" });
+    }
+    res.json(experience);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
