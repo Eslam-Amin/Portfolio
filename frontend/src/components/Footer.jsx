@@ -15,17 +15,17 @@ const Footer = () => {
   }
 
   return (
-    <footer className="text-center text-slate-600 py-8 text-sm font-mono">
+    <footer className="text-center text-slate-500 dark:text-slate-600 py-8 text-sm font-mono">
       <p className="mb-2">
         {footer?.builtWith || "Built with React.js & Tailwind"}
       </p>
       <p>
         Designed by{" "}
-        <span className="text-green-400">
+        <span className="text-green-600 dark:text-green-400">
           {footer?.designedBy || "Eslam Amin"}
         </span>{" "}
         and{" "}
-        <span className="text-blue-400">
+        <span className="text-blue-600 dark:text-blue-400">
           {footer?.coDesignedBy || "Gemini"}
         </span>
       </p>
