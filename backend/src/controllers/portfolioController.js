@@ -275,3 +275,14 @@ exports.getEducations = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Create an education entry
+// @route   POST /api/education
+exports.createEducation = async (req, res) => {
+  try {
+    const education = await Education.create(req.body);
+    res.status(201).json(education);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
