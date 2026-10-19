@@ -342,3 +342,20 @@ exports.createProject = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Update a project
+// @route   PUT /api/projects/:id
+exports.updateProject = async (req, res) => {
+  try {
+    const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    res.json(project);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
