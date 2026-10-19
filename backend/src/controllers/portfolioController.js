@@ -331,3 +331,14 @@ exports.getProjects = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Create a project
+// @route   POST /api/projects
+exports.createProject = async (req, res) => {
+  try {
+    const project = await Project.create(req.body);
+    res.status(201).json(project);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
