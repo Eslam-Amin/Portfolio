@@ -1,8 +1,11 @@
 import React from "react";
 import { ShimmerBlock } from "./Shimmer";
+import { usePortfolioContext } from "../context/PortfolioContext";
 
-const Footer = ({ footer, loading }) => {
-  if (loading) {
+const Footer = () => {
+  const { footer, infoLoading } = usePortfolioContext();
+
+  if (infoLoading) {
     return (
       <footer className="flex flex-col items-center gap-2 py-8">
         <ShimmerBlock className="h-4 w-48" />
