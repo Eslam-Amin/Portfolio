@@ -26,3 +26,32 @@ const buildCardsFromCategories = (skillDoc) => [
     items: [...(skillDoc.concepts || [])]
   }
 ];
+
+// @desc    Get all portfolio data in a single request (auto-seeds if DB is empty)
+// @route   GET /api/portfolio
+exports.getPortfolio = async (req, res) => {
+  try {
+    let profile = await Profile.findOne();
+    if (!profile) {
+      await seedDatabase(false);
+      profile = await Profile.findOne();
+    }
+
+    const [skills, experience, education, projects] = await Promise.all([
+      Skill.findOne(),
+      Experience.find().sort({ order: 1, createdAt: -1 }),
+      Education.find().sort({ order: 1, createdAt: -1 }),
+      Project.find().sort({ order: 1, createdAt: -1 })
+    ]);
+
+    res.json({
+      personalData: profile,
+      skills,
+      experience,
+      education,
+      projects
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
