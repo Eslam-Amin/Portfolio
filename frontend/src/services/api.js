@@ -18,3 +18,13 @@ export const updateProfileData = async (data) => {
   if (!response.ok) throw new Error("Failed to update profile");
   return response.json();
 };
+
+export const updateSkillsData = async (data) => {
+  const response = await fetch(`${API_BASE_URL}/skills`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) throw new Error("Failed to update skills");
+  return response.json();
+};
