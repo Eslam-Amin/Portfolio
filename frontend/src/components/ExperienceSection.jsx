@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SectionTitle from "./SectionTitle";
 import { ExperienceShimmer } from "./Shimmer";
-import { fetchWorkExperience } from "../services/api";
+import { fetchWorkExperience, fetchWithWarmupFallback } from "../services/api";
 import { experience as fallbackExperience } from "../data/portfolioData";
 
 const ExperienceSection = ({
@@ -12,27 +12,23 @@ const ExperienceSection = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     setLoading(true);
 
-    fetchWorkExperience()
-      .then((data) => {
-        if (!isMounted) return;
-        setExperience(
-          Array.isArray(data) && data.length > 0 ? data : fallbackExperience
-        );
-      })
-      .catch((err) => {
-        console.warn("Work experience fallback used:", err.message);
-        if (isMounted) setExperience(fallbackExperience);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+    const cleanup = fetchWithWarmupFallback(
+      fetchWorkExperience,
+      "experience",
+      fallbackExperience,
+      {
+        onData: (data) => {
+          setExperience(
+            Array.isArray(data) && data.length > 0 ? data : fallbackExperience
+          );
+        },
+        onLoadingChange: setLoading
+      }
+    );
 
-    return () => {
-      isMounted = false;
-    };
+    return cleanup;
   }, []);
 
   return (
