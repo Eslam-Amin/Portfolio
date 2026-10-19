@@ -1,44 +1,66 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { GraduationCap } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { EducationShimmer } from "./Shimmer";
-import { fetchEducation, fetchWithWarmupFallback } from "../services/api";
+import { fetchEducation, getFallbackSectionData } from "../services/api";
 import { education as fallbackEducation } from "../data/portfolioData";
+import { usePortfolioContext } from "../context/PortfolioContext";
 
-const EducationSection = ({
-  prompt = "root@eslam:~$",
-  title = "cat education.txt"
-}) => {
-  const [educationList, setEducationList] = useState([]);
-  const [loading, setLoading] = useState(true);
+const defaultList = Array.isArray(fallbackEducation)
+  ? fallbackEducation
+  : [fallbackEducation];
+
+const EducationSection = () => {
+  const { terminalPrompt, sectionTitles } = usePortfolioContext();
+  const [warmupData, setWarmupData] = useState(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["education"],
+    queryFn: fetchEducation,
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  });
 
   useEffect(() => {
-    setLoading(true);
-    const defaultList = Array.isArray(fallbackEducation)
-      ? fallbackEducation
-      : [fallbackEducation];
-
-    const cleanup = fetchWithWarmupFallback(
-      fetchEducation,
-      "education",
-      defaultList,
-      {
-        onData: (data) => {
-          setEducationList(
-            Array.isArray(data) && data.length > 0 ? data : defaultList
-          );
-        },
-        onLoadingChange: setLoading
+    if (data && Array.isArray(data) && data.length > 0) {
+      try {
+        localStorage.setItem(
+          "eslam_portfolio_section_education",
+          JSON.stringify(data)
+        );
+      } catch (err) {
+        // Ignore storage errors
       }
-    );
+      return;
+    }
 
-    return cleanup;
-  }, []);
+    if (isError) {
+      getFallbackSectionData("education", defaultList).then(setWarmupData);
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      getFallbackSectionData("education", defaultList).then(setWarmupData);
+    }, 1200);
+
+    return () => clearTimeout(timerId);
+  }, [data, isError]);
+
+  const showShimmer = isLoading && !warmupData && !data;
+  const educationList =
+    Array.isArray(data) && data.length > 0
+      ? data
+      : Array.isArray(warmupData) && warmupData.length > 0
+      ? warmupData
+      : defaultList;
 
   return (
     <section className="mb-24">
-      <SectionTitle prompt={prompt}>{title}</SectionTitle>
-      {loading ? (
+      <SectionTitle prompt={terminalPrompt}>
+        {sectionTitles?.education || "cat education.txt"}
+      </SectionTitle>
+      {showShimmer ? (
         <EducationShimmer />
       ) : (
         <div className="space-y-6">
