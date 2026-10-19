@@ -52,9 +52,9 @@ const buildCardsFromCategories = (skillDoc) => [
 // @route   GET /api/portfolio
 exports.getPortfolio = async (req, res) => {
   try {
-    if (portfolioCache) {
+    if (cache.portfolio) {
       res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
-      return res.json(portfolioCache);
+      return res.json(cache.portfolio);
     }
 
     let [profile, skills, experience, education, projects] = await Promise.all([
@@ -76,7 +76,12 @@ exports.getPortfolio = async (req, res) => {
       ]);
     }
 
-    portfolioCache = {
+    cache.profile = profile;
+    cache.skills = skills;
+    cache.experience = experience;
+    cache.education = education;
+    cache.projects = projects;
+    cache.portfolio = {
       personalData: profile,
       skills,
       experience,
@@ -85,7 +90,7 @@ exports.getPortfolio = async (req, res) => {
     };
 
     res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
-    res.json(portfolioCache);
+    res.json(cache.portfolio);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
