@@ -82,3 +82,20 @@ exports.getProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Update profile / bio (or create if none exists)
+// @route   PUT /api/profile
+exports.updateProfile = async (req, res) => {
+  try {
+    let profile = await Profile.findOne();
+    if (!profile) {
+      profile = await Profile.create(req.body);
+    } else {
+      Object.assign(profile, req.body);
+      await profile.save();
+    }
+    res.json(profile);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
