@@ -1,42 +1,63 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Code, Github, Globe, Play, Smartphone } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { ProjectsShimmer } from "./Shimmer";
-import { fetchProjects, fetchWithWarmupFallback } from "../services/api";
+import { fetchProjects, getFallbackSectionData } from "../services/api";
 import { projects as fallbackProjects } from "../data/portfolioData";
+import { usePortfolioContext } from "../context/PortfolioContext";
 
-const ProjectsSection = ({
-  prompt = "root@eslam:~$",
-  title = "ls ./projects"
-}) => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+const ProjectsSection = () => {
+  const { terminalPrompt, sectionTitles } = usePortfolioContext();
+  const [warmupData, setWarmupData] = useState(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["projects"],
+    queryFn: fetchProjects,
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  });
 
   useEffect(() => {
-    setLoading(true);
-
-    const cleanup = fetchWithWarmupFallback(
-      fetchProjects,
-      "projects",
-      fallbackProjects,
-      {
-        onData: (data) => {
-          setProjects(
-            Array.isArray(data) && data.length > 0 ? data : fallbackProjects
-          );
-        },
-        onLoadingChange: setLoading
+    if (data && Array.isArray(data) && data.length > 0) {
+      try {
+        localStorage.setItem(
+          "eslam_portfolio_section_projects",
+          JSON.stringify(data)
+        );
+      } catch (err) {
+        // Ignore storage errors
       }
-    );
+      return;
+    }
 
-    return cleanup;
-  }, []);
+    if (isError) {
+      getFallbackSectionData("projects", fallbackProjects).then(setWarmupData);
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      getFallbackSectionData("projects", fallbackProjects).then(setWarmupData);
+    }, 1200);
+
+    return () => clearTimeout(timerId);
+  }, [data, isError]);
+
+  const showShimmer = isLoading && !warmupData && !data;
+  const projects =
+    Array.isArray(data) && data.length > 0
+      ? data
+      : Array.isArray(warmupData) && warmupData.length > 0
+      ? warmupData
+      : fallbackProjects;
 
   return (
     <section id="projects" className="mb-24">
-      <SectionTitle prompt={prompt}>{title}</SectionTitle>
+      <SectionTitle prompt={terminalPrompt}>
+        {sectionTitles?.projects || "ls ./projects"}
+      </SectionTitle>
 
-      {loading ? (
+      {showShimmer ? (
         <ProjectsShimmer />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
