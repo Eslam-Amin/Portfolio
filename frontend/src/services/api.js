@@ -38,3 +38,13 @@ export const createItem = async (resource, data) => {
   if (!response.ok) throw new Error(`Failed to create ${resource}`);
   return response.json();
 };
+
+export const updateItem = async (resource, id, data) => {
+  const response = await fetch(`${API_BASE_URL}/${resource}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) throw new Error(`Failed to update ${resource}`);
+  return response.json();
+};
