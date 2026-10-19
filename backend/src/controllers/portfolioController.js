@@ -5,11 +5,25 @@ const Education = require("../models/Education");
 const Project = require("../models/Project");
 const seedDatabase = require("../seed/seed");
 
-// In-memory cache for instant (<1ms) GET responses, automatically invalidated on any write
-let portfolioCache = null;
+// In-memory cache per resource for instant (<1ms) GET responses, invalidated on writes
+let cache = {
+  portfolio: null,
+  profile: null,
+  skills: null,
+  experience: null,
+  education: null,
+  projects: null
+};
 
 const invalidateCache = () => {
-  portfolioCache = null;
+  cache = {
+    portfolio: null,
+    profile: null,
+    skills: null,
+    experience: null,
+    education: null,
+    projects: null
+  };
 };
 
 // Helper to build default skill cards from skill arrays when cards are not explicitly provided
