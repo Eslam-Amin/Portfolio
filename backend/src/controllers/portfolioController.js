@@ -219,3 +219,14 @@ exports.getExperiences = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Create a work experience entry
+// @route   POST /api/experience
+exports.createExperience = async (req, res) => {
+  try {
+    const experience = await Experience.create(req.body);
+    res.status(201).json(experience);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
