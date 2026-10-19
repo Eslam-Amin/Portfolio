@@ -154,10 +154,16 @@ exports.updateProfile = async (req, res) => {
 // @route   GET /api/skills
 exports.getSkills = async (req, res) => {
   try {
+    if (cache.skills) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(cache.skills);
+    }
     const skills = await Skill.findOne().lean();
     if (!skills) {
       return res.status(404).json({ message: "Skills not found" });
     }
+    cache.skills = skills;
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
     res.json(skills);
   } catch (error) {
     res.status(500).json({ message: error.message });
