@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { fetchInformation } from "../services/api";
+import { fetchInformation, fetchWithWarmupFallback } from "../services/api";
 import { personalData as fallbackPersonalData } from "../data/portfolioData";
 import { HeroShimmer } from "./Shimmer";
 
@@ -9,29 +9,29 @@ const InformationSection = ({ onInfoLoaded }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     setLoading(true);
+    let latestData = fallbackPersonalData;
 
-    fetchInformation()
-      .then((data) => {
-        if (!isMounted) return;
-        const resolved = data || fallbackPersonalData;
-        setInfo(resolved);
-        if (onInfoLoaded) onInfoLoaded(resolved, false);
-      })
-      .catch((err) => {
-        console.warn("Information fallback used:", err.message);
-        if (!isMounted) return;
-        setInfo(fallbackPersonalData);
-        if (onInfoLoaded) onInfoLoaded(fallbackPersonalData, false);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+    const cleanup = fetchWithWarmupFallback(
+      fetchInformation,
+      "personalData",
+      fallbackPersonalData,
+      {
+        onData: (data) => {
+          latestData = data || fallbackPersonalData;
+          setInfo(latestData);
+          if (onInfoLoaded) onInfoLoaded(latestData, false);
+        },
+        onLoadingChange: (isLoading) => {
+          setLoading(isLoading);
+          if (!isLoading && onInfoLoaded) {
+            onInfoLoaded(latestData, false);
+          }
+        }
+      }
+    );
 
-    return () => {
-      isMounted = false;
-    };
+    return cleanup;
   }, [onInfoLoaded]);
 
   const personalData = info || fallbackPersonalData;
