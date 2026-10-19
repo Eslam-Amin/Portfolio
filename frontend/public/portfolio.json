@@ -1,0 +1,265 @@
+{
+  "personalData": {
+    "name": "Eslam Amin",
+    "title": "Backend Developer",
+    "greeting": "Hello, my name is",
+    "logoText": "<Eslam />",
+    "terminalPrompt": "root@eslam:~$",
+    "email": "ea.eslamamin@gmail.com",
+    "phone": "+201099007326",
+    "address": "Cairo, Egypt",
+    "github": "https://github.com/Eslam-Amin",
+    "linkedin": "https://linkedin.com/in/eslamamin-dev",
+    "cvLink": "https://drive.google.com/file/d/1k-uifqDxHyor4GBqlTioWeK1QKeCpX0A/view?usp=sharing",
+    "whatsapp": "https://wa.me/201099007326",
+    "summary": "Backend Developer with ~2 years of experience building scalable, high-performance systems. Skilled in Node.js, NestJS, Go, SQL, and MongoDB. Proven track record in fintech, e-commerce, and social media solutions.",
+    "ctaPrimaryText": "View My Work",
+    "ctaSecondaryText": "Contact Me",
+    "sectionTitles": {
+      "experience": "cd /experience",
+      "skills": "cat skills.json",
+      "education": "cat education.txt",
+      "projects": "ls ./projects"
+    },
+    "footer": {
+      "builtWith": "Built with React.js & Tailwind",
+      "designedBy": "Eslam Amin",
+      "coDesignedBy": "Gemini"
+    }
+  },
+  "skills": {
+    "languages": ["TypeScript", "JavaScript (ES6+)", "Go (Golang)", "SQL"],
+    "frameworks": ["Node.js", "NestJS", "Express.js", "Gin", "ReactJS"],
+    "databases": ["PostgreSQL", "MySQL", "MongoDB", "Redis"],
+    "tools": [
+      "Docker",
+      "Kafka",
+      "Prisma",
+      "TypeORM",
+      "GORM",
+      "Jest",
+      "Supertest",
+      "Git/GitHub",
+      "CI/CD",
+      "Swagger",
+      "Jenkins"
+    ],
+    "concepts": [
+      "Data Structures",
+      "Algorithms",
+      "SOLID Principles",
+      "Design Patterns",
+      "System Design",
+      "Unit Testing",
+      "Microservices Architecture"
+    ],
+    "cards": [
+      {
+        "title": "Backend & Core",
+        "icon": "Server",
+        "color": "green",
+        "items": [
+          "TypeScript",
+          "JavaScript (ES6+)",
+          "Go (Golang)",
+          "SQL",
+          "Node.js",
+          "NestJS",
+          "Express.js",
+          "Gin",
+          "ReactJS"
+        ]
+      },
+      {
+        "title": "Infra & Data",
+        "icon": "Database",
+        "color": "purple",
+        "items": [
+          "PostgreSQL",
+          "MySQL",
+          "MongoDB",
+          "Redis",
+          "Docker",
+          "Kafka",
+          "Prisma",
+          "TypeORM",
+          "GORM",
+          "Jest",
+          "Supertest",
+          "Git/GitHub",
+          "CI/CD",
+          "Swagger",
+          "Jenkins"
+        ]
+      },
+      {
+        "title": "Architecture & CS",
+        "icon": "Cpu",
+        "color": "blue",
+        "items": [
+          "Data Structures",
+          "Algorithms",
+          "SOLID Principles",
+          "Design Patterns",
+          "System Design",
+          "Unit Testing",
+          "Microservices Architecture"
+        ]
+      }
+    ]
+  },
+  "experience": [
+    {
+      "company": "OneFurever",
+      "role": "Backend Developer",
+      "duration": "Dec 2025 - Present",
+      "type": "Remote",
+      "description": "Leading the architectural refactoring of a pet-focused social media platform, migrating from traditional routes to a Modular Architecture. Enhanced system performance and reliability by implementing a dedicated Service Layer to decouple business logic from controllers.",
+      "order": 1
+    },
+    {
+      "company": "AIM Technologies",
+      "role": "Software Engineer",
+      "duration": "June 2025 - Nov 2025",
+      "type": "Hybrid",
+      "description": "Developed a Social Media Listening Tool using MERN Stack and NestJS. Focused on enhancing tool performance, resolving critical production issues, and assisting in the complete rebranding of the tool's architecture.",
+      "order": 2
+    },
+    {
+      "company": "Neon",
+      "role": "Backend Developer",
+      "duration": "May 2024 - June 2025",
+      "type": "On-Site",
+      "description": "Developed scalable web applications for E-Commerce and E-Learning platforms. Optimized database performance by indexing MongoDB and MySQL queries, significantly reducing system latency. Debugged and resolved complex errors to ensure platform stability.",
+      "order": 3
+    },
+    {
+      "company": "Amwal",
+      "role": "Backend Developer",
+      "duration": "Mar 2025 - Apr 2025",
+      "type": "Remote",
+      "description": "Built a Supply Chain Finance service. Successfully migrated legacy raw MySQL queries to TypeORM repositories for maintainability. Implemented class-validator for strict HTTP request validation and collaborated on security enhancements using JWT.",
+      "order": 4
+    }
+  ],
+  "education": [
+    {
+      "school": "Future Academy, Cairo",
+      "degree": "Bachelor's Degree in Computer Science",
+      "duration": "2018 - 2022",
+      "gpa": "3.69/4",
+      "details": "Ranked 4th in the batch. Graduated with a focus on Software Engineering and Data Structures.",
+      "order": 1
+    }
+  ],
+  "projects": [
+    {
+      "title": "SkyDrop (Go Replica)",
+      "desc": "Complete backend replica of SkyDrop from Node.js to Golang to improve system stability. Leveraged Go's static typing and efficient memory management to create a more robust and maintainable architecture.",
+      "tech": ["Golang", "Gin", "PostgreSQL", "GORM", "Docker", "Docker Compose"],
+      "github": "https://github.com/Eslam-Amin/drone-delivery-backend-golang",
+      "date": "2026",
+      "order": 1
+    },
+    {
+      "title": "SkyDrop (Node.js)",
+      "desc": "Backend service for drone delivery management built with a RESTful architecture. Features complex database modeling for Orders, Drones, and Users, ensuring data integrity through Prisma ORM relations.",
+      "tech": [
+        "Node.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma",
+        "Express",
+        "Jest",
+        "Docker",
+        "Docker Compose"
+      ],
+      "github": "https://github.com/Eslam-Amin/drone-delivery-backend-node.js",
+      "date": "2026",
+      "order": 2
+    },
+    {
+      "title": "Event Management API",
+      "date": "2025",
+      "tech": ["Go", "Gin", "MySQL", "JWT"],
+      "desc": "A lightweight REST API for managing event lifecycles. Users can register/cancel attendance and perform full CRUD operations. Built using Go Modules.",
+      "github": "https://github.com/Eslam-Amin/Event-Management-Api",
+      "order": 3
+    },
+    {
+      "title": "Car Selling API",
+      "date": "2025",
+      "tech": ["NestJS", "TypeORM", "MySQL", "Redis"],
+      "desc": "Comprehensive REST API for car sales reports. Features In-Memory caching for speed, extensive Unit/E2E testing, and a modular architecture.",
+      "github": "https://github.com/Eslam-Amin/Car-Selling-Api",
+      "order": 4
+    },
+    {
+      "title": "Restaurant Management API",
+      "date": "2025",
+      "tech": ["NestJS", "MongoDB", "Swagger"],
+      "desc": "A scalable system for managing restaurants and user data. Fully documented using Swagger UI for easy frontend integration.",
+      "github": "https://github.com/Eslam-Amin/Restaurant-Management-Api",
+      "order": 5
+    },
+    {
+      "title": "OneFurever",
+      "date": "Aug 2024 - June 2025",
+      "tech": ["Node.js", "Socket.io", "Firebase", "PayMob"],
+      "desc": "A community platform for pet owners offering real-time chat and services. Integrated Firebase for push notifications and PayMob for secure transactions.",
+      "demo": "https://onefurever.com",
+      "googlePlay": "https://play.google.com/store/apps/details?id=com.neon.furreverapp",
+      "appStore": "https://apps.apple.com/eg/app/onefurever/id6741108135",
+      "order": 6
+    },
+    {
+      "title": "HAJJO E-Commerce",
+      "date": "July 2024 - Sep 2024",
+      "tech": ["Node.js", "Express", "Redis", "PayMob"],
+      "desc": "Backend server built from scratch for a suits e-commerce brand. Implemented Redis caching to optimize product retrieval speeds and integrated local payment gateways.",
+      "order": 7
+    },
+    {
+      "title": "o'Curls",
+      "date": "2024",
+      "tech": ["Node.js", "Express", "MongoDB", "PayMob"],
+      "desc": "E-commerce solution for hair products. Key contribution involved upgrading the payment infrastructure from legacy iframes to Unified Checkout.",
+      "link": "https://o-curls.com",
+      "order": 8
+    },
+    {
+      "title": "Portfolio v1.0 (Legacy)",
+      "date": "2024",
+      "tech": ["HTML/CSS", "JavaScript", "Bootstrap"],
+      "desc": "My original frontend-focused portfolio. Archived here to demonstrate my progression into backend engineering.",
+      "github": "https://github.com/Eslam-Amin/PersonalPortfolio",
+      "demo": "https://eslam-amin-portfolio.netlify.app/",
+      "order": 9
+    },
+    {
+      "title": "Social Network",
+      "date": "2024",
+      "tech": ["MERN Stack", "Socket.io", "ContextAPI"],
+      "desc": "A social platform mimicking the classic Facebook experience. Features real-time messaging using Socket.io and a reactive frontend.",
+      "github": "https://github.com/Eslam-Amin/SocialNetworkBackend",
+      "demo": "https://social-network-mern.netlify.app",
+      "order": 10
+    },
+    {
+      "title": "Market Backend Service",
+      "date": "2024",
+      "tech": ["Node.js", "MySQL", "MongoDB", "JWT"],
+      "desc": "A complex system managing branches, cashiers, and receipts. Demonstrates ability to work with hybrid database architectures (SQL & NoSQL).",
+      "github": "https://github.com/Eslam-Amin/Market",
+      "order": 11
+    },
+    {
+      "title": "Explorer Enthusiast",
+      "date": "2024",
+      "tech": ["Node.js", "MapBox", "Pug", "MongoDB"],
+      "desc": "Tour management application featuring geo-spatial data visualization. Integrated MapBox API to display tour locations.",
+      "github": "https://github.com/Eslam-Amin/Explorer-Enthusiast",
+      "order": 12
+    }
+  ]
+}
