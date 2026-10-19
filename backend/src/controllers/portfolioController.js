@@ -286,3 +286,21 @@ exports.createEducation = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Update an education entry
+// @route   PUT /api/education/:id
+exports.updateEducation = async (req, res) => {
+  try {
+    const education = await Education.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+    if (!education) {
+      return res.status(404).json({ message: "Education entry not found" });
+    }
+    res.json(education);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
