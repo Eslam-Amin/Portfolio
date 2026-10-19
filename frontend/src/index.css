@@ -2,4 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can keep your custom styles (like scrollbar hiding) below this line */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: rgba(30, 41, 59, 0.7);
+}
+
+.shimmer-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(74, 222, 128, 0.08),
+    rgba(148, 163, 184, 0.14),
+    rgba(74, 222, 128, 0.08),
+    transparent
+  );
+  animation: shimmerSweep 1.6s infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
