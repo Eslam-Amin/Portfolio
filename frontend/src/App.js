@@ -53,6 +53,47 @@ const COLOR_STYLES = {
   }
 };
 
+const CACHE_KEY = "eslam_portfolio_cache_v1";
+
+const getInitialPortfolioState = () => {
+  const defaultState = {
+    personalData: fallbackPersonalData,
+    skills: fallbackSkills,
+    experience: fallbackExperience,
+    education: Array.isArray(fallbackEducation)
+      ? fallbackEducation
+      : [fallbackEducation],
+    projects: fallbackProjects
+  };
+
+  try {
+    const cached = localStorage.getItem(CACHE_KEY);
+    if (cached) {
+      const parsed = JSON.parse(cached);
+      return {
+        personalData: parsed.personalData || defaultState.personalData,
+        skills: parsed.skills || defaultState.skills,
+        experience:
+          Array.isArray(parsed.experience) && parsed.experience.length > 0
+            ? parsed.experience
+            : defaultState.experience,
+        education:
+          Array.isArray(parsed.education) && parsed.education.length > 0
+            ? parsed.education
+            : defaultState.education,
+        projects:
+          Array.isArray(parsed.projects) && parsed.projects.length > 0
+            ? parsed.projects
+            : defaultState.projects
+      };
+    }
+  } catch (err) {
+    // Ignore localStorage parse errors
+  }
+
+  return defaultState;
+};
+
 const SectionTitle = ({ children, prompt = "root@eslam:~$" }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -117,16 +158,8 @@ const SectionTitle = ({ children, prompt = "root@eslam:~$" }) => {
 };
 
 function App() {
-  const [portfolio, setPortfolio] = useState({
-    personalData: fallbackPersonalData,
-    skills: fallbackSkills,
-    experience: fallbackExperience,
-    education: Array.isArray(fallbackEducation)
-      ? fallbackEducation
-      : [fallbackEducation],
-    projects: fallbackProjects
-  });
-  const [loading, setLoading] = useState(true);
+  // Stale-while-revalidate: render immediately from localStorage cache or fallback, then sync with API
+  const [portfolio, setPortfolio] = useState(getInitialPortfolioState);
 
   useEffect(() => {
     let isMounted = true;
@@ -134,7 +167,7 @@ function App() {
     fetchPortfolioData()
       .then((data) => {
         if (!isMounted || !data) return;
-        setPortfolio({
+        const nextPortfolio = {
           personalData: data.personalData || fallbackPersonalData,
           skills: data.skills || fallbackSkills,
           experience:
@@ -151,16 +184,19 @@ function App() {
             Array.isArray(data.projects) && data.projects.length > 0
               ? data.projects
               : fallbackProjects
-        });
+        };
+        setPortfolio(nextPortfolio);
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(nextPortfolio));
+        } catch (err) {
+          // Ignore storage quota errors
+        }
       })
       .catch((err) => {
         console.warn(
-          "Using local fallback portfolio data (backend unreachable):",
+          "Using cached/fallback portfolio data (backend unreachable):",
           err.message
         );
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
       });
 
     return () => {
@@ -200,18 +236,6 @@ function App() {
             items: [...(skills?.concepts || [])]
           }
         ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-slate-900 text-slate-300 font-mono flex items-center justify-center px-6">
-        <div className="text-lg md:text-2xl text-green-400">
-          <span className="text-purple-500 mr-2">{terminalPrompt}</span>
-          fetching portfolio_data...
-          <span className="ml-1 animate-pulse text-green-500 font-black">_</span>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-300 font-sans selection:bg-green-500 selection:text-black">
