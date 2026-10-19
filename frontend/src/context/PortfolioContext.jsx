@@ -1,7 +1,27 @@
-import React, { createContext, useContext, useState, useMemo } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo
+} from "react";
 import { personalData as fallbackPersonalData } from "../data/portfolioData";
 
 const PortfolioContext = createContext(null);
+const THEME_STORAGE_KEY = "eslam_portfolio_theme";
+
+const getInitialTheme = () => {
+  try {
+    const saved = localStorage.getItem(THEME_STORAGE_KEY);
+    if (saved === "light" || saved === "dark") {
+      return saved;
+    }
+  } catch (err) {
+    // Ignore storage read errors
+  }
+  return "dark";
+};
 
 export const PortfolioProvider = ({ children }) => {
   const [info, setInfo] = useState(fallbackPersonalData);
