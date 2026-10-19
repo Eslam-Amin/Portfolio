@@ -1,40 +1,65 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "./SectionTitle";
 import { ExperienceShimmer } from "./Shimmer";
-import { fetchWorkExperience, fetchWithWarmupFallback } from "../services/api";
+import { fetchWorkExperience, getFallbackSectionData } from "../services/api";
 import { experience as fallbackExperience } from "../data/portfolioData";
+import { usePortfolioContext } from "../context/PortfolioContext";
 
-const ExperienceSection = ({
-  prompt = "root@eslam:~$",
-  title = "cd /experience"
-}) => {
-  const [experience, setExperience] = useState([]);
-  const [loading, setLoading] = useState(true);
+const ExperienceSection = () => {
+  const { terminalPrompt, sectionTitles } = usePortfolioContext();
+  const [warmupData, setWarmupData] = useState(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["experience"],
+    queryFn: fetchWorkExperience,
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  });
 
   useEffect(() => {
-    setLoading(true);
-
-    const cleanup = fetchWithWarmupFallback(
-      fetchWorkExperience,
-      "experience",
-      fallbackExperience,
-      {
-        onData: (data) => {
-          setExperience(
-            Array.isArray(data) && data.length > 0 ? data : fallbackExperience
-          );
-        },
-        onLoadingChange: setLoading
+    if (data && Array.isArray(data) && data.length > 0) {
+      try {
+        localStorage.setItem(
+          "eslam_portfolio_section_experience",
+          JSON.stringify(data)
+        );
+      } catch (err) {
+        // Ignore storage errors
       }
-    );
+      return;
+    }
 
-    return cleanup;
-  }, []);
+    if (isError) {
+      getFallbackSectionData("experience", fallbackExperience).then(
+        setWarmupData
+      );
+      return;
+    }
+
+    const timerId = setTimeout(() => {
+      getFallbackSectionData("experience", fallbackExperience).then(
+        setWarmupData
+      );
+    }, 1200);
+
+    return () => clearTimeout(timerId);
+  }, [data, isError]);
+
+  const showShimmer = isLoading && !warmupData && !data;
+  const experience =
+    Array.isArray(data) && data.length > 0
+      ? data
+      : Array.isArray(warmupData) && warmupData.length > 0
+      ? warmupData
+      : fallbackExperience;
 
   return (
     <section className="mb-24">
-      <SectionTitle prompt={prompt}>{title}</SectionTitle>
-      {loading ? (
+      <SectionTitle prompt={terminalPrompt}>
+        {sectionTitles?.experience || "cd /experience"}
+      </SectionTitle>
+      {showShimmer ? (
         <ExperienceShimmer />
       ) : (
         <div className="border-l-2 border-slate-700 ml-3 space-y-12">
