@@ -22,6 +22,29 @@ export const fetchStaticSnapshot = async () => {
   return snapshotPromise;
 };
 
+// Helper: reads cached section from localStorage or static public/portfolio.json file
+export const getFallbackSectionData = async (sectionKey, bundledFallback) => {
+  try {
+    const cached = localStorage.getItem(`${SECTION_CACHE_PREFIX}${sectionKey}`);
+    if (cached) {
+      return JSON.parse(cached);
+    }
+  } catch (err) {
+    // Ignore storage read errors
+  }
+
+  try {
+    const snapshot = await fetchStaticSnapshot();
+    if (snapshot && snapshot[sectionKey]) {
+      return snapshot[sectionKey];
+    }
+  } catch (err) {
+    // Ignore static fetch errors and return bundled fallback
+  }
+
+  return bundledFallback;
+};
+
 const getAuthHeaders = (token) => {
   const authToken = token || localStorage.getItem("portfolio_token");
   return {
