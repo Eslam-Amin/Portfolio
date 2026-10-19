@@ -114,10 +114,16 @@ exports.reseedPortfolio = async (req, res) => {
 // @route   GET /api/profile
 exports.getProfile = async (req, res) => {
   try {
+    if (cache.profile) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(cache.profile);
+    }
     const profile = await Profile.findOne().lean();
     if (!profile) {
       return res.status(404).json({ message: "Profile not found" });
     }
+    cache.profile = profile;
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
     res.json(profile);
   } catch (error) {
     res.status(500).json({ message: error.message });
