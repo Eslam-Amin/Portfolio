@@ -318,3 +318,16 @@ exports.deleteEducation = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// ==================== PROJECTS ====================
+
+// @desc    Get all projects
+// @route   GET /api/projects
+exports.getProjects = async (req, res) => {
+  try {
+    const projects = await Project.find().sort({ order: 1, createdAt: -1 });
+    res.json(projects);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
