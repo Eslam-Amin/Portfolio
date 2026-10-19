@@ -149,3 +149,20 @@ exports.updateSkills = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Add a skill card
+// @route   POST /api/skills/cards
+exports.addSkillCard = async (req, res) => {
+  try {
+    let skills = await Skill.findOne();
+    if (!skills) {
+      skills = await Skill.create({ cards: [req.body] });
+    } else {
+      skills.cards.push(req.body);
+      await skills.save();
+    }
+    res.status(201).json(skills);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
