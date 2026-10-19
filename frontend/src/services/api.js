@@ -9,6 +9,14 @@ const getAuthHeaders = (token) => {
   };
 };
 
+export const fetchInformation = async () => {
+  const response = await fetch(`${API_BASE_URL}/profile`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch profile information: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 export const loginAdmin = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
