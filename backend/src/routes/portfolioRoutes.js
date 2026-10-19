@@ -36,6 +36,7 @@ router.post("/seed", protect, reseedPortfolio);
 
 // Profile / Bio
 router.route("/profile").get(getProfile).put(protect, updateProfile);
+router.route("/information").get(getProfile).put(protect, updateProfile);
 
 // Skills
 router.route("/skills").get(getSkills).put(protect, updateSkills);
