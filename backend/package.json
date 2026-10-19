@@ -4,7 +4,7 @@
   "description": "Dynamic MongoDB & Express backend for Eslam Amin's Portfolio",
   "main": "src/server.js",
   "scripts": {
-    "build": "echo \"No build script configured\"",
+    "build": "npm install",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "seed": "node src/seed/seed.js"
