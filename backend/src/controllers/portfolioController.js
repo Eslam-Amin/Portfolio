@@ -206,3 +206,16 @@ exports.deleteSkillCard = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// ==================== EXPERIENCE ====================
+
+// @desc    Get all work experience entries
+// @route   GET /api/experience
+exports.getExperiences = async (req, res) => {
+  try {
+    const experiences = await Experience.find().sort({ order: 1, createdAt: -1 });
+    res.json(experiences);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
