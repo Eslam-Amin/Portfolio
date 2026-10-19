@@ -48,3 +48,11 @@ export const updateItem = async (resource, id, data) => {
   if (!response.ok) throw new Error(`Failed to update ${resource}`);
   return response.json();
 };
+
+export const deleteItem = async (resource, id) => {
+  const response = await fetch(`${API_BASE_URL}/${resource}/${id}`, {
+    method: "DELETE"
+  });
+  if (!response.ok) throw new Error(`Failed to delete ${resource}`);
+  return response.json();
+};
