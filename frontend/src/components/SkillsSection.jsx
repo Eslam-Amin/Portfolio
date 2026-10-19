@@ -18,18 +18,21 @@ const ICON_MAP = {
 const COLOR_STYLES = {
   green: {
     cardBorder: "hover:border-green-500/50",
-    headerText: "text-green-400",
-    badgeHover: "hover:text-green-400 hover:border-green-500/50"
+    headerText: "text-green-600 dark:text-green-400",
+    badgeHover:
+      "hover:text-green-600 dark:hover:text-green-400 hover:border-green-500/50"
   },
   purple: {
     cardBorder: "hover:border-purple-500/50",
-    headerText: "text-purple-400",
-    badgeHover: "hover:text-purple-400 hover:border-purple-500/50"
+    headerText: "text-purple-600 dark:text-purple-400",
+    badgeHover:
+      "hover:text-purple-600 dark:hover:text-purple-400 hover:border-purple-500/50"
   },
   blue: {
     cardBorder: "hover:border-blue-500/50",
-    headerText: "text-blue-400",
-    badgeHover: "hover:text-blue-400 hover:border-blue-500/50"
+    headerText: "text-blue-600 dark:text-blue-400",
+    badgeHover:
+      "hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50"
   }
 };
 
@@ -117,19 +120,21 @@ const SkillsSection = () => {
             return (
               <div
                 key={card._id || idx}
-                className={`bg-slate-800/50 p-6 rounded border border-slate-700 ${colorTheme.cardBorder} transition`}
+                className={`bg-white dark:bg-slate-800/50 p-6 rounded border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none ${colorTheme.cardBorder} transition`}
               >
                 <div
                   className={`flex items-center gap-3 mb-4 ${colorTheme.headerText}`}
                 >
                   <IconComponent size={24} />
-                  <h3 className="font-bold text-lg">{card.title}</h3>
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-inherit">
+                    {card.title}
+                  </h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {(card.items || []).map((skill) => (
                     <span
                       key={skill}
-                      className={`bg-slate-900 border border-slate-700 px-3 py-1 rounded text-sm text-slate-300 ${colorTheme.badgeHover} transition cursor-default`}
+                      className={`bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 px-3 py-1 rounded text-sm text-slate-700 dark:text-slate-300 ${colorTheme.badgeHover} transition cursor-default`}
                     >
                       {skill}
                     </span>
