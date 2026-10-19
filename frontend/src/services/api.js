@@ -8,3 +8,13 @@ export const fetchPortfolioData = async () => {
   }
   return response.json();
 };
+
+export const updateProfileData = async (data) => {
+  const response = await fetch(`${API_BASE_URL}/profile`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) throw new Error("Failed to update profile");
+  return response.json();
+};
