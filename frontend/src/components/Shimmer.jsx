@@ -27,3 +27,20 @@ export const HeroShimmer = () => (
     </div>
   </div>
 );
+
+export const ExperienceShimmer = () => (
+  <div className="border-l-2 border-slate-700 ml-3 space-y-12" aria-busy="true">
+    {[1, 2, 3, 4].map((item) => (
+      <div key={item} className="relative pl-8 space-y-3">
+        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-green-500/40 animate-pulse" />
+        <ShimmerBlock className="h-6 w-64 sm:w-80" />
+        <ShimmerBlock className="h-4 w-44" />
+        <div className="space-y-2 pt-1">
+          <ShimmerBlock className="h-4 w-full" />
+          <ShimmerBlock className="h-4 w-11/12" />
+          <ShimmerBlock className="h-4 w-3/4" />
+        </div>
+      </div>
+    ))}
+  </div>
+);
