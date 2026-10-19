@@ -55,3 +55,14 @@ exports.getPortfolio = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Reset and seed database with default portfolio data
+// @route   POST /api/seed
+exports.reseedPortfolio = async (req, res) => {
+  try {
+    await seedDatabase(false);
+    res.json({ message: "Database seeded successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
