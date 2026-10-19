@@ -71,3 +71,21 @@ export const SkillsShimmer = () => (
     ))}
   </div>
 );
+
+export const EducationShimmer = () => (
+  <div className="space-y-6" aria-busy="true">
+    <div className="bg-slate-800/40 p-6 rounded border border-slate-700/70 flex items-start gap-6">
+      <ShimmerBlock className="w-16 h-16 rounded-lg hidden sm:block shrink-0" />
+      <div className="flex-1 space-y-3">
+        <ShimmerBlock className="h-7 w-64" />
+        <ShimmerBlock className="h-6 w-80 max-w-full" />
+        <div className="flex gap-6">
+          <ShimmerBlock className="h-4 w-28" />
+          <ShimmerBlock className="h-4 w-24" />
+        </div>
+        <ShimmerBlock className="h-4 w-full" />
+        <ShimmerBlock className="h-4 w-2/3" />
+      </div>
+    </div>
+  </div>
+);
