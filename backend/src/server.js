@@ -3,13 +3,20 @@ const fs = require("fs");
 const { execSync } = require("child_process");
 
 const backendRoot = path.join(__dirname, "..");
-if (!fs.existsSync(path.join(backendRoot, "node_modules", "express"))) {
-  console.log("node_modules not found in backend, running npm install...");
+if (
+  !fs.existsSync(path.join(backendRoot, "node_modules", "express")) ||
+  !fs.existsSync(path.join(backendRoot, "node_modules", "jsonwebtoken")) ||
+  !fs.existsSync(path.join(backendRoot, "node_modules", "express-rate-limit"))
+) {
+  console.log("Installing backend dependencies...");
   execSync("npm install", { cwd: backendRoot, stdio: "inherit" });
 }
 
 try {
-  require("dotenv").config({ path: path.join(backendRoot, ".env") });
+  require("dotenv").config({
+    path: path.join(backendRoot, ".env"),
+    override: true
+  });
 } catch (err) {
   // Ignore if dotenv is not needed in cloud environment
 }
@@ -17,9 +24,13 @@ try {
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const { globalLimiter } = require("./middleware/rateLimiter");
 const portfolioRoutes = require("./routes/portfolioRoutes");
 
 const app = express();
+
+// Trust reverse proxy (Render, Railway, etc.) so rate limiter reads client IP accurately
+app.set("trust proxy", 1);
 
 // Connect to MongoDB
 connectDB();
@@ -27,6 +38,9 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Apply rate limiter across the whole backend
+app.use(globalLimiter);
 
 // Health check
 app.get("/", (req, res) => {
