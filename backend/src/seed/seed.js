@@ -1,4 +1,10 @@
-require("dotenv").config();
+const path = require("path");
+try {
+  require("dotenv").config({ path: path.join(__dirname, "../../.env") });
+} catch (err) {
+  // In production environments where env vars are injected by the host
+}
+
 const mongoose = require("mongoose");
 const connectDB = require("../config/db");
 const Profile = require("../models/Profile");

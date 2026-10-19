@@ -1,0 +1,21 @@
+{
+  "name": "eslam-portfolio-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "main": "backend/src/server.js",
+  "scripts": {
+    "postinstall": "npm install --prefix backend",
+    "start": "node backend/src/server.js",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm start --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "build:frontend": "npm run build --prefix frontend",
+    "deploy:frontend": "npm run deploy --prefix frontend"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1"
+  }
+}
