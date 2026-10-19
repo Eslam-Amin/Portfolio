@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Server, Database, Cpu, Code, Globe } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { SkillsShimmer } from "./Shimmer";
-import { fetchSkills } from "../services/api";
+import { fetchSkills, fetchWithWarmupFallback } from "../services/api";
 import { skills as fallbackSkills } from "../data/portfolioData";
 
 const ICON_MAP = {
@@ -39,25 +39,21 @@ const SkillsSection = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     setLoading(true);
 
-    fetchSkills()
-      .then((data) => {
-        if (!isMounted) return;
-        setSkills(data || fallbackSkills);
-      })
-      .catch((err) => {
-        console.warn("Skills fallback used:", err.message);
-        if (isMounted) setSkills(fallbackSkills);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+    const cleanup = fetchWithWarmupFallback(
+      fetchSkills,
+      "skills",
+      fallbackSkills,
+      {
+        onData: (data) => {
+          setSkills(data || fallbackSkills);
+        },
+        onLoadingChange: setLoading
+      }
+    );
 
-    return () => {
-      isMounted = false;
-    };
+    return cleanup;
   }, []);
 
   const resolvedSkills = skills || fallbackSkills;
