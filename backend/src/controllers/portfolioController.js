@@ -108,10 +108,10 @@ exports.reseedPortfolio = async (req, res) => {
   }
 };
 
-// ==================== PROFILE / BIO ====================
+// ==================== PROFILE / BIO / INFORMATION ====================
 
-// @desc    Get profile / bio
-// @route   GET /api/profile
+// @desc    Get profile / bio information
+// @route   GET /api/profile | GET /api/information
 exports.getProfile = async (req, res) => {
   try {
     if (cache.profile) {
@@ -131,7 +131,7 @@ exports.getProfile = async (req, res) => {
 };
 
 // @desc    Update profile / bio (or create if none exists)
-// @route   PUT /api/profile
+// @route   PUT /api/profile | PUT /api/information
 exports.updateProfile = async (req, res) => {
   try {
     let profile = await Profile.findOne();
@@ -268,7 +268,7 @@ exports.deleteSkillCard = async (req, res) => {
 // ==================== EXPERIENCE ====================
 
 // @desc    Get all work experience entries
-// @route   GET /api/experience
+// @route   GET /api/experience | GET /api/work-experience
 exports.getExperiences = async (req, res) => {
   try {
     if (cache.experience) {
@@ -287,7 +287,7 @@ exports.getExperiences = async (req, res) => {
 };
 
 // @desc    Create a work experience entry
-// @route   POST /api/experience
+// @route   POST /api/experience | POST /api/work-experience
 exports.createExperience = async (req, res) => {
   try {
     const experience = await Experience.create(req.body);
@@ -299,7 +299,7 @@ exports.createExperience = async (req, res) => {
 };
 
 // @desc    Update a work experience entry
-// @route   PUT /api/experience/:id
+// @route   PUT /api/experience/:id | PUT /api/work-experience/:id
 exports.updateExperience = async (req, res) => {
   try {
     const experience = await Experience.findByIdAndUpdate(
@@ -318,7 +318,7 @@ exports.updateExperience = async (req, res) => {
 };
 
 // @desc    Delete a work experience entry
-// @route   DELETE /api/experience/:id
+// @route   DELETE /api/experience/:id | DELETE /api/work-experience/:id
 exports.deleteExperience = async (req, res) => {
   try {
     const experience = await Experience.findByIdAndDelete(req.params.id);
@@ -405,9 +405,15 @@ exports.deleteEducation = async (req, res) => {
 // @route   GET /api/projects
 exports.getProjects = async (req, res) => {
   try {
+    if (cache.projects) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(cache.projects);
+    }
     const projects = await Project.find()
       .sort({ order: 1, createdAt: -1 })
       .lean();
+    cache.projects = projects;
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
     res.json(projects);
   } catch (error) {
     res.status(500).json({ message: error.message });
