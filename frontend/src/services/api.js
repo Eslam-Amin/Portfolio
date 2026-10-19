@@ -1,6 +1,27 @@
 const API_BASE_URL =
   process.env.REACT_APP_API_URL || "https://portfolio-swho.onrender.com/api";
 
+const SNAPSHOT_URL = `${process.env.PUBLIC_URL || ""}/portfolio.json`;
+const SECTION_CACHE_PREFIX = "eslam_portfolio_section_";
+
+let snapshotPromise = null;
+
+// Load static snapshot file (public/portfolio.json) once and memoize
+export const fetchStaticSnapshot = async () => {
+  if (!snapshotPromise) {
+    snapshotPromise = fetch(SNAPSHOT_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load static portfolio.json");
+        return res.json();
+      })
+      .catch((err) => {
+        snapshotPromise = null;
+        throw err;
+      });
+  }
+  return snapshotPromise;
+};
+
 const getAuthHeaders = (token) => {
   const authToken = token || localStorage.getItem("portfolio_token");
   return {
