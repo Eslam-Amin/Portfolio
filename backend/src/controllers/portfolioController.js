@@ -338,9 +338,15 @@ exports.deleteExperience = async (req, res) => {
 // @route   GET /api/education
 exports.getEducations = async (req, res) => {
   try {
+    if (cache.education) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(cache.education);
+    }
     const educations = await Education.find()
       .sort({ order: 1, createdAt: -1 })
       .lean();
+    cache.education = educations;
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
     res.json(educations);
   } catch (error) {
     res.status(500).json({ message: error.message });
