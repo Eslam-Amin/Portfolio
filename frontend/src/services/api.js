@@ -17,6 +17,14 @@ export const fetchInformation = async () => {
   return response.json();
 };
 
+export const fetchSkills = async () => {
+  const response = await fetch(`${API_BASE_URL}/skills`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch skills: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 export const loginAdmin = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
