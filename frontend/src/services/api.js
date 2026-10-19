@@ -9,6 +9,8 @@ const getAuthHeaders = (token) => {
   };
 };
 
+// ==================== PUBLIC SECTION ENDPOINTS ====================
+
 export const fetchInformation = async () => {
   const response = await fetch(`${API_BASE_URL}/profile`);
   if (!response.ok) {
@@ -49,6 +51,16 @@ export const fetchProjects = async () => {
   return response.json();
 };
 
+export const fetchPortfolioData = async () => {
+  const response = await fetch(`${API_BASE_URL}/portfolio`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch portfolio data: ${response.statusText}`);
+  }
+  return response.json();
+};
+
+// ==================== AUTH & PROTECTED CRUD ENDPOINTS ====================
+
 export const loginAdmin = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
@@ -63,14 +75,6 @@ export const loginAdmin = async (username, password) => {
     localStorage.setItem("portfolio_token", data.token);
   }
   return data;
-};
-
-export const fetchPortfolioData = async () => {
-  const response = await fetch(`${API_BASE_URL}/portfolio`);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch portfolio data: ${response.statusText}`);
-  }
-  return response.json();
 };
 
 export const updateProfileData = async (data, token) => {
