@@ -1,44 +1,67 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { fetchInformation, fetchWithWarmupFallback } from "../services/api";
+import { fetchInformation, getFallbackSectionData } from "../services/api";
 import { personalData as fallbackPersonalData } from "../data/portfolioData";
+import { usePortfolioContext } from "../context/PortfolioContext";
 import { HeroShimmer } from "./Shimmer";
 
-const InformationSection = ({ onInfoLoaded }) => {
-  const [info, setInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
+const InformationSection = () => {
+  const { setInfo, setInfoLoading } = usePortfolioContext();
+  const [warmupData, setWarmupData] = useState(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["information"],
+    queryFn: fetchInformation,
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  });
 
   useEffect(() => {
-    setLoading(true);
-    let latestData = fallbackPersonalData;
-
-    const cleanup = fetchWithWarmupFallback(
-      fetchInformation,
-      "personalData",
-      fallbackPersonalData,
-      {
-        onData: (data) => {
-          latestData = data || fallbackPersonalData;
-          setInfo(latestData);
-          if (onInfoLoaded) onInfoLoaded(latestData, false);
-        },
-        onLoadingChange: (isLoading) => {
-          setLoading(isLoading);
-          if (!isLoading && onInfoLoaded) {
-            onInfoLoaded(latestData, false);
-          }
-        }
+    if (data) {
+      setInfo(data);
+      setInfoLoading(false);
+      try {
+        localStorage.setItem(
+          "eslam_portfolio_section_personalData",
+          JSON.stringify(data)
+        );
+      } catch (err) {
+        // Ignore storage errors
       }
-    );
+      return;
+    }
 
-    return cleanup;
-  }, [onInfoLoaded]);
+    if (isError) {
+      getFallbackSectionData("personalData", fallbackPersonalData).then(
+        (fallback) => {
+          setWarmupData(fallback);
+          setInfo(fallback);
+          setInfoLoading(false);
+        }
+      );
+      return;
+    }
 
-  const personalData = info || fallbackPersonalData;
+    const timerId = setTimeout(() => {
+      getFallbackSectionData("personalData", fallbackPersonalData).then(
+        (fallback) => {
+          setWarmupData(fallback);
+          setInfo(fallback);
+          setInfoLoading(false);
+        }
+      );
+    }, 1200);
+
+    return () => clearTimeout(timerId);
+  }, [data, isError, setInfo, setInfoLoading]);
+
+  const showShimmer = isLoading && !warmupData && !data;
+  const personalData = data || warmupData || fallbackPersonalData;
 
   return (
     <section className="mb-24 pt-10">
-      {loading ? (
+      {showShimmer ? (
         <HeroShimmer />
       ) : (
         <div className="flex flex-col gap-2">
