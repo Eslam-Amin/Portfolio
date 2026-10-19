@@ -67,33 +67,35 @@ const EducationSection = () => {
           {educationList.map((edu, idx) => (
             <div
               key={edu._id || idx}
-              className="bg-slate-800/50 p-6 rounded border border-slate-700 flex items-start gap-6"
+              className="bg-white dark:bg-slate-800/50 p-6 rounded border border-slate-200 dark:border-slate-700 shadow-sm dark:shadow-none flex items-start gap-6 transition-colors duration-300"
             >
-              <div className="p-4 bg-green-500/10 rounded-lg text-green-400 hidden sm:block">
+              <div className="p-4 bg-green-500/10 rounded-lg text-green-600 dark:text-green-400 hidden sm:block">
                 <GraduationCap size={40} />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                   {edu.school}
                 </h3>
-                <p className="text-xl text-green-400 font-mono mb-2">
+                <p className="text-xl text-green-600 dark:text-green-400 font-mono mb-2">
                   {edu.degree}
                 </p>
                 <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono text-slate-500 mb-4">
                   {edu.duration && (
                     <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-500"></span>
                       {edu.duration}
                     </span>
                   )}
                   {edu.gpa && (
                     <span className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      <span className="w-2 h-2 rounded-full bg-green-600 dark:bg-green-500"></span>
                       GPA: {edu.gpa}
                     </span>
                   )}
                 </div>
-                <p className="text-slate-400 leading-relaxed">{edu.details}</p>
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {edu.details}
+                </p>
               </div>
             </div>
           ))}
