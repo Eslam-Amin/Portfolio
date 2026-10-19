@@ -45,6 +45,72 @@ export const getFallbackSectionData = async (sectionKey, bundledFallback) => {
   return bundledFallback;
 };
 
+// Helper: fetches live backend data, but if backend is cold-starting (>1200ms),
+// immediately delivers the static file / cached data via onFallbackReady
+// and then delivers the live backend data via onLiveReady when the server wakes up!
+export const fetchWithWarmupFallback = (
+  liveFetchFn,
+  sectionKey,
+  bundledFallback,
+  { onData, onLoadingChange, timeoutMs = 1200 }
+) => {
+  let isCancelled = false;
+  let liveResolved = false;
+
+  const timerId = setTimeout(async () => {
+    if (isCancelled || liveResolved) return;
+    const fallbackData = await getFallbackSectionData(
+      sectionKey,
+      bundledFallback
+    );
+    if (!isCancelled && !liveResolved && fallbackData) {
+      onData(fallbackData, "fallback");
+      onLoadingChange(false);
+    }
+  }, timeoutMs);
+
+  liveFetchFn()
+    .then((liveData) => {
+      liveResolved = true;
+      clearTimeout(timerId);
+      if (isCancelled) return;
+      if (liveData) {
+        onData(liveData, "live");
+        try {
+          localStorage.setItem(
+            `${SECTION_CACHE_PREFIX}${sectionKey}`,
+            JSON.stringify(liveData)
+          );
+        } catch (err) {
+          // Ignore storage quota errors
+        }
+      }
+      onLoadingChange(false);
+    })
+    .catch(async (err) => {
+      liveResolved = true;
+      clearTimeout(timerId);
+      if (isCancelled) return;
+      console.warn(
+        `Backend unreachable for ${sectionKey}, using static portfolio.json fallback:`,
+        err.message
+      );
+      const fallbackData = await getFallbackSectionData(
+        sectionKey,
+        bundledFallback
+      );
+      if (!isCancelled && fallbackData) {
+        onData(fallbackData, "fallback");
+      }
+      onLoadingChange(false);
+    });
+
+  return () => {
+    isCancelled = true;
+    clearTimeout(timerId);
+  };
+};
+
 const getAuthHeaders = (token) => {
   const authToken = token || localStorage.getItem("portfolio_token");
   return {
@@ -58,7 +124,9 @@ const getAuthHeaders = (token) => {
 export const fetchInformation = async () => {
   const response = await fetch(`${API_BASE_URL}/profile`);
   if (!response.ok) {
-    throw new Error(`Failed to fetch profile information: ${response.statusText}`);
+    throw new Error(
+      `Failed to fetch profile information: ${response.statusText}`
+    );
   }
   return response.json();
 };
