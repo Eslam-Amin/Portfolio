@@ -29,7 +29,10 @@ export const HeroShimmer = () => (
 );
 
 export const ExperienceShimmer = () => (
-  <div className="border-l-2 border-slate-700 ml-3 space-y-12" aria-busy="true">
+  <div
+    className="border-l-2 border-slate-300 dark:border-slate-700 ml-3 space-y-12"
+    aria-busy="true"
+  >
     {[1, 2, 3, 4].map((item) => (
       <div key={item} className="relative pl-8 space-y-3">
         <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-green-500/40 animate-pulse" />
@@ -53,7 +56,7 @@ export const SkillsShimmer = () => (
     {[1, 2, 3].map((card) => (
       <div
         key={card}
-        className="bg-slate-800/40 p-6 rounded border border-slate-700/70 space-y-4"
+        className="bg-white/80 dark:bg-slate-800/40 p-6 rounded border border-slate-200 dark:border-slate-700/70 space-y-4"
       >
         <div className="flex items-center gap-3">
           <ShimmerBlock className="h-6 w-6 rounded" />
@@ -74,7 +77,7 @@ export const SkillsShimmer = () => (
 
 export const EducationShimmer = () => (
   <div className="space-y-6" aria-busy="true">
-    <div className="bg-slate-800/40 p-6 rounded border border-slate-700/70 flex items-start gap-6">
+    <div className="bg-white/80 dark:bg-slate-800/40 p-6 rounded border border-slate-200 dark:border-slate-700/70 flex items-start gap-6">
       <ShimmerBlock className="w-16 h-16 rounded-lg hidden sm:block shrink-0" />
       <div className="flex-1 space-y-3">
         <ShimmerBlock className="h-7 w-64" />
@@ -95,7 +98,7 @@ export const ProjectsShimmer = () => (
     {[1, 2, 3, 4, 5, 6].map((proj) => (
       <div
         key={proj}
-        className="bg-slate-800/40 p-6 rounded-lg border border-slate-700/70 flex flex-col space-y-4"
+        className="bg-white/80 dark:bg-slate-800/40 p-6 rounded-lg border border-slate-200 dark:border-slate-700/70 flex flex-col space-y-4"
       >
         <div className="flex justify-between items-start">
           <ShimmerBlock className="w-11 h-11 rounded-md" />
@@ -113,7 +116,7 @@ export const ProjectsShimmer = () => (
           <ShimmerBlock className="h-4 w-11/12" />
           <ShimmerBlock className="h-4 w-4/5" />
         </div>
-        <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-700/50">
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-200 dark:border-slate-700/50">
           {[1, 2, 3, 4].map((tag) => (
             <ShimmerBlock key={tag} className="h-6 w-16 rounded" />
           ))}
