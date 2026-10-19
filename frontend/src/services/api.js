@@ -1,5 +1,5 @@
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+  process.env.REACT_APP_API_URL || "https://portfolio-swho.onrender.com/api";
 
 export const fetchPortfolioData = async () => {
   const response = await fetch(`${API_BASE_URL}/portfolio`);
