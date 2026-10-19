@@ -271,9 +271,15 @@ exports.deleteSkillCard = async (req, res) => {
 // @route   GET /api/experience
 exports.getExperiences = async (req, res) => {
   try {
+    if (cache.experience) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(cache.experience);
+    }
     const experiences = await Experience.find()
       .sort({ order: 1, createdAt: -1 })
       .lean();
+    cache.experience = experiences;
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
     res.json(experiences);
   } catch (error) {
     res.status(500).json({ message: error.message });
