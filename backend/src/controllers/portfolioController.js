@@ -304,3 +304,17 @@ exports.updateEducation = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Delete an education entry
+// @route   DELETE /api/education/:id
+exports.deleteEducation = async (req, res) => {
+  try {
+    const education = await Education.findByIdAndDelete(req.params.id);
+    if (!education) {
+      return res.status(404).json({ message: "Education entry not found" });
+    }
+    res.json({ message: "Education deleted successfully", id: req.params.id });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
