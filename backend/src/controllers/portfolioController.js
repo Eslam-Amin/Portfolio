@@ -248,3 +248,17 @@ exports.updateExperience = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Delete a work experience entry
+// @route   DELETE /api/experience/:id
+exports.deleteExperience = async (req, res) => {
+  try {
+    const experience = await Experience.findByIdAndDelete(req.params.id);
+    if (!experience) {
+      return res.status(404).json({ message: "Experience entry not found" });
+    }
+    res.json({ message: "Experience deleted successfully", id: req.params.id });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
