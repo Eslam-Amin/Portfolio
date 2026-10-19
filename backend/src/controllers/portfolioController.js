@@ -186,3 +186,23 @@ exports.updateSkillCard = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Delete a skill card by ID
+// @route   DELETE /api/skills/cards/:cardId
+exports.deleteSkillCard = async (req, res) => {
+  try {
+    const skills = await Skill.findOne();
+    if (!skills) {
+      return res.status(404).json({ message: "Skills document not found" });
+    }
+    const card = skills.cards.id(req.params.cardId);
+    if (!card) {
+      return res.status(404).json({ message: "Skill card not found" });
+    }
+    card.deleteOne();
+    await skills.save();
+    res.json(skills);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
