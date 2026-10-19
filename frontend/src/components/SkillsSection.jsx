@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Server, Database, Cpu, Code, Globe } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { SkillsShimmer } from "./Shimmer";
-import { fetchSkills, fetchWithWarmupFallback } from "../services/api";
+import { fetchSkills, getFallbackSectionData } from "../services/api";
 import { skills as fallbackSkills } from "../data/portfolioData";
+import { usePortfolioContext } from "../context/PortfolioContext";
 
 const ICON_MAP = {
   Server,
@@ -31,32 +33,44 @@ const COLOR_STYLES = {
   }
 };
 
-const SkillsSection = ({
-  prompt = "root@eslam:~$",
-  title = "cat skills.json"
-}) => {
-  const [skills, setSkills] = useState(null);
-  const [loading, setLoading] = useState(true);
+const SkillsSection = () => {
+  const { terminalPrompt, sectionTitles } = usePortfolioContext();
+  const [warmupData, setWarmupData] = useState(null);
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["skills"],
+    queryFn: fetchSkills,
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  });
 
   useEffect(() => {
-    setLoading(true);
-
-    const cleanup = fetchWithWarmupFallback(
-      fetchSkills,
-      "skills",
-      fallbackSkills,
-      {
-        onData: (data) => {
-          setSkills(data || fallbackSkills);
-        },
-        onLoadingChange: setLoading
+    if (data) {
+      try {
+        localStorage.setItem(
+          "eslam_portfolio_section_skills",
+          JSON.stringify(data)
+        );
+      } catch (err) {
+        // Ignore storage errors
       }
-    );
+      return;
+    }
 
-    return cleanup;
-  }, []);
+    if (isError) {
+      getFallbackSectionData("skills", fallbackSkills).then(setWarmupData);
+      return;
+    }
 
-  const resolvedSkills = skills || fallbackSkills;
+    const timerId = setTimeout(() => {
+      getFallbackSectionData("skills", fallbackSkills).then(setWarmupData);
+    }, 1200);
+
+    return () => clearTimeout(timerId);
+  }, [data, isError]);
+
+  const showShimmer = isLoading && !warmupData && !data;
+  const resolvedSkills = data || warmupData || fallbackSkills;
   const skillCards =
     resolvedSkills?.cards && resolvedSkills.cards.length > 0
       ? resolvedSkills.cards
@@ -89,8 +103,10 @@ const SkillsSection = ({
 
   return (
     <section className="mb-24">
-      <SectionTitle prompt={prompt}>{title}</SectionTitle>
-      {loading ? (
+      <SectionTitle prompt={terminalPrompt}>
+        {sectionTitles?.skills || "cat skills.json"}
+      </SectionTitle>
+      {showShimmer ? (
         <SkillsShimmer />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
