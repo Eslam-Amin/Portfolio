@@ -44,15 +44,15 @@ const SectionTitle = ({ children, prompt = "root@eslam:~$" }) => {
 
   return (
     <div ref={elementRef} className="mb-8">
-      <h2 className="font-mono font-bold text-green-400 flex flex-wrap items-center">
-        <span className="text-purple-500 mr-2 whitespace-nowrap text-lg md:text-2xl">
+      <h2 className="font-mono font-bold text-green-600 dark:text-green-400 flex flex-wrap items-center">
+        <span className="text-purple-600 dark:text-purple-500 mr-2 whitespace-nowrap text-lg md:text-2xl">
           {prompt}
         </span>
 
         <span className="text-lg md:text-2xl break-all">
           {displayedText}
           <span
-            className="ml-1 animate-pulse text-green-500 font-black inline-block"
+            className="ml-1 animate-pulse text-green-600 dark:text-green-500 font-black inline-block"
             style={{ animationDuration: "0.75s" }}
           >
             _
