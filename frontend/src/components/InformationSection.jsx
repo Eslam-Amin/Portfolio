@@ -65,44 +65,55 @@ const InformationSection = () => {
         <HeroShimmer />
       ) : (
         <div className="flex flex-col gap-2">
-          <p className="font-mono text-green-400">
+          <p className="font-mono text-green-600 dark:text-green-400">
             {personalData.greeting || "Hello, my name is"}
           </p>
-          <h1 className="text-6xl font-bold text-white tracking-tight">
+          <h1 className="text-6xl font-bold text-slate-900 dark:text-white tracking-tight">
             {personalData.name}.
           </h1>
 
           {/* Headline & Location Row */}
           <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
-            <h2 className="text-3xl font-bold text-slate-400">
+            <h2 className="text-3xl font-bold text-slate-600 dark:text-slate-400">
               {personalData.title}
             </h2>
             {personalData.address && (
               <>
-                <span className="hidden md:block text-slate-600">/</span>
-                <div className="flex items-center gap-2 text-slate-400 font-mono">
-                  <MapPin size={20} className="text-green-400" />
+                <span className="hidden md:block text-slate-400 dark:text-slate-600">
+                  /
+                </span>
+                <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 font-mono">
+                  <MapPin
+                    size={20}
+                    className="text-green-600 dark:text-green-400"
+                  />
                   {personalData.address}
                 </div>
               </>
             )}
           </div>
 
-          <p className="max-w-xl text-lg text-slate-400 mb-8 leading-relaxed">
+          <p className="max-w-xl text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
             {personalData.summary}
           </p>
 
           {/* Quick Contact Details */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-8 text-sm font-mono text-slate-400">
+          <div className="flex flex-col sm:flex-row gap-4 mb-8 text-sm font-mono text-slate-600 dark:text-slate-400">
             {personalData.email && (
               <div className="flex items-center gap-2">
-                <Mail size={16} className="text-green-400" />
+                <Mail
+                  size={16}
+                  className="text-green-600 dark:text-green-400"
+                />
                 {personalData.email}
               </div>
             )}
             {personalData.phone && (
               <div className="flex items-center gap-2">
-                <Phone size={16} className="text-green-400" />
+                <Phone
+                  size={16}
+                  className="text-green-600 dark:text-green-400"
+                />
                 {personalData.phone}
               </div>
             )}
@@ -112,7 +123,7 @@ const InformationSection = () => {
           <div className="flex flex-wrap gap-4 items-center">
             <a
               href="#projects"
-              className="px-8 py-3 bg-green-500 text-slate-900 font-mono font-bold rounded hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]"
+              className="px-8 py-3 bg-green-600 dark:bg-green-500 text-white dark:text-slate-900 font-mono font-bold rounded hover:bg-green-500 dark:hover:bg-green-400 transition shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]"
             >
               {personalData.ctaPrimaryText || "View My Work"}
             </a>
@@ -120,7 +131,7 @@ const InformationSection = () => {
             {personalData.email && (
               <a
                 href={`mailto:${personalData.email}`}
-                className="px-6 py-3 border border-green-500 text-green-400 font-mono font-bold rounded hover:bg-green-500/10 transition"
+                className="px-6 py-3 border border-green-600 dark:border-green-500 text-green-700 dark:text-green-400 font-mono font-bold rounded hover:bg-green-500/10 transition"
               >
                 {personalData.ctaSecondaryText || "Contact Me"}
               </a>
