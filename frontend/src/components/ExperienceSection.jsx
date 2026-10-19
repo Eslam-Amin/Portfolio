@@ -62,18 +62,22 @@ const ExperienceSection = () => {
       {showShimmer ? (
         <ExperienceShimmer />
       ) : (
-        <div className="border-l-2 border-slate-700 ml-3 space-y-12">
+        <div className="border-l-2 border-slate-300 dark:border-slate-700 ml-3 space-y-12">
           {experience.map((job, idx) => (
             <div key={job._id || idx} className="relative pl-8">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-green-500" />
-              <h3 className="text-xl font-bold text-white">
+              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-green-600 dark:bg-green-500" />
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                 {job.role}{" "}
-                <span className="text-green-400">@ {job.company}</span>
+                <span className="text-green-600 dark:text-green-400">
+                  @ {job.company}
+                </span>
               </h3>
               <p className="font-mono text-sm text-slate-500 mb-2">
                 {job.duration} | {job.type}
               </p>
-              <p className="text-slate-400">{job.description}</p>
+              <p className="text-slate-600 dark:text-slate-400">
+                {job.description}
+              </p>
             </div>
           ))}
         </div>
