@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Code, Github, Globe, Play, Smartphone } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { ProjectsShimmer } from "./Shimmer";
-import { fetchProjects } from "../services/api";
+import { fetchProjects, fetchWithWarmupFallback } from "../services/api";
 import { projects as fallbackProjects } from "../data/portfolioData";
 
 const ProjectsSection = ({
@@ -13,27 +13,23 @@ const ProjectsSection = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     setLoading(true);
 
-    fetchProjects()
-      .then((data) => {
-        if (!isMounted) return;
-        setProjects(
-          Array.isArray(data) && data.length > 0 ? data : fallbackProjects
-        );
-      })
-      .catch((err) => {
-        console.warn("Projects fallback used:", err.message);
-        if (isMounted) setProjects(fallbackProjects);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+    const cleanup = fetchWithWarmupFallback(
+      fetchProjects,
+      "projects",
+      fallbackProjects,
+      {
+        onData: (data) => {
+          setProjects(
+            Array.isArray(data) && data.length > 0 ? data : fallbackProjects
+          );
+        },
+        onLoadingChange: setLoading
+      }
+    );
 
-    return () => {
-      isMounted = false;
-    };
+    return cleanup;
   }, []);
 
   return (
