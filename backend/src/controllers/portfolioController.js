@@ -99,3 +99,19 @@ exports.updateProfile = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// ==================== SKILLS ====================
+
+// @desc    Get skills
+// @route   GET /api/skills
+exports.getSkills = async (req, res) => {
+  try {
+    const skills = await Skill.findOne();
+    if (!skills) {
+      return res.status(404).json({ message: "Skills not found" });
+    }
+    res.json(skills);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
