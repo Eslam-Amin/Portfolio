@@ -115,3 +115,37 @@ exports.getSkills = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// @desc    Update skills categories and/or cards
+// @route   PUT /api/skills
+exports.updateSkills = async (req, res) => {
+  try {
+    let skills = await Skill.findOne();
+    if (!skills) {
+      skills = new Skill(req.body);
+    } else {
+      if (req.body.languages !== undefined) skills.languages = req.body.languages;
+      if (req.body.frameworks !== undefined) skills.frameworks = req.body.frameworks;
+      if (req.body.databases !== undefined) skills.databases = req.body.databases;
+      if (req.body.tools !== undefined) skills.tools = req.body.tools;
+      if (req.body.concepts !== undefined) skills.concepts = req.body.concepts;
+    }
+
+    if (req.body.cards !== undefined) {
+      skills.cards = req.body.cards;
+    } else if (
+      req.body.languages !== undefined ||
+      req.body.frameworks !== undefined ||
+      req.body.databases !== undefined ||
+      req.body.tools !== undefined ||
+      req.body.concepts !== undefined
+    ) {
+      skills.cards = buildCardsFromCategories(skills);
+    }
+
+    await skills.save();
+    res.json(skills);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
