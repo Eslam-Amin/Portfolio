@@ -24,7 +24,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PortfolioProvider>
-        <div className="min-h-screen bg-slate-900 text-slate-300 font-sans selection:bg-green-500 selection:text-black">
+        <div className="min-h-screen bg-slate-50 text-slate-700 dark:bg-slate-900 dark:text-slate-300 font-sans selection:bg-green-500 selection:text-black transition-colors duration-300">
           <Navbar />
 
           <main className="max-w-4xl mx-auto px-6 pt-32 pb-20">
