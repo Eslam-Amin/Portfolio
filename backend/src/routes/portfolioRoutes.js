@@ -34,7 +34,7 @@ router.post("/auth/login", loginLimiter, login);
 router.get("/portfolio", getPortfolio);
 router.post("/seed", protect, reseedPortfolio);
 
-// Profile / Bio
+// Profile / Bio / Information
 router.route("/profile").get(getProfile).put(protect, updateProfile);
 router.route("/information").get(getProfile).put(protect, updateProfile);
 
@@ -46,13 +46,22 @@ router
   .put(protect, updateSkillCard)
   .delete(protect, deleteSkillCard);
 
-// Experience
+// Work Experience
 router
   .route("/experience")
   .get(getExperiences)
   .post(protect, createExperience);
 router
   .route("/experience/:id")
+  .put(protect, updateExperience)
+  .delete(protect, deleteExperience);
+
+router
+  .route("/work-experience")
+  .get(getExperiences)
+  .post(protect, createExperience);
+router
+  .route("/work-experience/:id")
   .put(protect, updateExperience)
   .delete(protect, deleteExperience);
 
