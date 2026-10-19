@@ -33,6 +33,14 @@ export const fetchWorkExperience = async () => {
   return response.json();
 };
 
+export const fetchEducation = async () => {
+  const response = await fetch(`${API_BASE_URL}/education`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch education: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 export const loginAdmin = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
