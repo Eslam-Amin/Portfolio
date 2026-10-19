@@ -5,6 +5,13 @@ const Education = require("../models/Education");
 const Project = require("../models/Project");
 const seedDatabase = require("../seed/seed");
 
+// In-memory cache for instant (<1ms) GET responses, automatically invalidated on any write
+let portfolioCache = null;
+
+const invalidateCache = () => {
+  portfolioCache = null;
+};
+
 // Helper to build default skill cards from skill arrays when cards are not explicitly provided
 const buildCardsFromCategories = (skillDoc) => [
   {
@@ -27,30 +34,44 @@ const buildCardsFromCategories = (skillDoc) => [
   }
 ];
 
-// @desc    Get all portfolio data in a single request (auto-seeds if DB is empty)
+// @desc    Get all portfolio data in a single request (cached in RAM + parallel .lean() queries)
 // @route   GET /api/portfolio
 exports.getPortfolio = async (req, res) => {
   try {
-    let profile = await Profile.findOne();
-    if (!profile) {
-      await seedDatabase(false);
-      profile = await Profile.findOne();
+    if (portfolioCache) {
+      res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+      return res.json(portfolioCache);
     }
 
-    const [skills, experience, education, projects] = await Promise.all([
-      Skill.findOne(),
-      Experience.find().sort({ order: 1, createdAt: -1 }),
-      Education.find().sort({ order: 1, createdAt: -1 }),
-      Project.find().sort({ order: 1, createdAt: -1 })
+    let [profile, skills, experience, education, projects] = await Promise.all([
+      Profile.findOne().lean(),
+      Skill.findOne().lean(),
+      Experience.find().sort({ order: 1, createdAt: -1 }).lean(),
+      Education.find().sort({ order: 1, createdAt: -1 }).lean(),
+      Project.find().sort({ order: 1, createdAt: -1 }).lean()
     ]);
 
-    res.json({
+    if (!profile) {
+      await seedDatabase(false);
+      [profile, skills, experience, education, projects] = await Promise.all([
+        Profile.findOne().lean(),
+        Skill.findOne().lean(),
+        Experience.find().sort({ order: 1, createdAt: -1 }).lean(),
+        Education.find().sort({ order: 1, createdAt: -1 }).lean(),
+        Project.find().sort({ order: 1, createdAt: -1 }).lean()
+      ]);
+    }
+
+    portfolioCache = {
       personalData: profile,
       skills,
       experience,
       education,
       projects
-    });
+    };
+
+    res.set("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+    res.json(portfolioCache);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -61,6 +82,7 @@ exports.getPortfolio = async (req, res) => {
 exports.reseedPortfolio = async (req, res) => {
   try {
     await seedDatabase(false);
+    invalidateCache();
     res.json({ message: "Database seeded successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -73,7 +95,7 @@ exports.reseedPortfolio = async (req, res) => {
 // @route   GET /api/profile
 exports.getProfile = async (req, res) => {
   try {
-    const profile = await Profile.findOne();
+    const profile = await Profile.findOne().lean();
     if (!profile) {
       return res.status(404).json({ message: "Profile not found" });
     }
@@ -94,6 +116,7 @@ exports.updateProfile = async (req, res) => {
       Object.assign(profile, req.body);
       await profile.save();
     }
+    invalidateCache();
     res.json(profile);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -106,7 +129,7 @@ exports.updateProfile = async (req, res) => {
 // @route   GET /api/skills
 exports.getSkills = async (req, res) => {
   try {
-    const skills = await Skill.findOne();
+    const skills = await Skill.findOne().lean();
     if (!skills) {
       return res.status(404).json({ message: "Skills not found" });
     }
@@ -144,6 +167,7 @@ exports.updateSkills = async (req, res) => {
     }
 
     await skills.save();
+    invalidateCache();
     res.json(skills);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -161,6 +185,7 @@ exports.addSkillCard = async (req, res) => {
       skills.cards.push(req.body);
       await skills.save();
     }
+    invalidateCache();
     res.status(201).json(skills);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -181,6 +206,7 @@ exports.updateSkillCard = async (req, res) => {
     }
     Object.assign(card, req.body);
     await skills.save();
+    invalidateCache();
     res.json(skills);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -201,6 +227,7 @@ exports.deleteSkillCard = async (req, res) => {
     }
     card.deleteOne();
     await skills.save();
+    invalidateCache();
     res.json(skills);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -213,7 +240,9 @@ exports.deleteSkillCard = async (req, res) => {
 // @route   GET /api/experience
 exports.getExperiences = async (req, res) => {
   try {
-    const experiences = await Experience.find().sort({ order: 1, createdAt: -1 });
+    const experiences = await Experience.find()
+      .sort({ order: 1, createdAt: -1 })
+      .lean();
     res.json(experiences);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -225,6 +254,7 @@ exports.getExperiences = async (req, res) => {
 exports.createExperience = async (req, res) => {
   try {
     const experience = await Experience.create(req.body);
+    invalidateCache();
     res.status(201).json(experience);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -243,6 +273,7 @@ exports.updateExperience = async (req, res) => {
     if (!experience) {
       return res.status(404).json({ message: "Experience entry not found" });
     }
+    invalidateCache();
     res.json(experience);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -257,6 +288,7 @@ exports.deleteExperience = async (req, res) => {
     if (!experience) {
       return res.status(404).json({ message: "Experience entry not found" });
     }
+    invalidateCache();
     res.json({ message: "Experience deleted successfully", id: req.params.id });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -269,7 +301,9 @@ exports.deleteExperience = async (req, res) => {
 // @route   GET /api/education
 exports.getEducations = async (req, res) => {
   try {
-    const educations = await Education.find().sort({ order: 1, createdAt: -1 });
+    const educations = await Education.find()
+      .sort({ order: 1, createdAt: -1 })
+      .lean();
     res.json(educations);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -281,6 +315,7 @@ exports.getEducations = async (req, res) => {
 exports.createEducation = async (req, res) => {
   try {
     const education = await Education.create(req.body);
+    invalidateCache();
     res.status(201).json(education);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -299,6 +334,7 @@ exports.updateEducation = async (req, res) => {
     if (!education) {
       return res.status(404).json({ message: "Education entry not found" });
     }
+    invalidateCache();
     res.json(education);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -313,6 +349,7 @@ exports.deleteEducation = async (req, res) => {
     if (!education) {
       return res.status(404).json({ message: "Education entry not found" });
     }
+    invalidateCache();
     res.json({ message: "Education deleted successfully", id: req.params.id });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -325,7 +362,9 @@ exports.deleteEducation = async (req, res) => {
 // @route   GET /api/projects
 exports.getProjects = async (req, res) => {
   try {
-    const projects = await Project.find().sort({ order: 1, createdAt: -1 });
+    const projects = await Project.find()
+      .sort({ order: 1, createdAt: -1 })
+      .lean();
     res.json(projects);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -337,6 +376,7 @@ exports.getProjects = async (req, res) => {
 exports.createProject = async (req, res) => {
   try {
     const project = await Project.create(req.body);
+    invalidateCache();
     res.status(201).json(project);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -354,6 +394,7 @@ exports.updateProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
+    invalidateCache();
     res.json(project);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -368,6 +409,7 @@ exports.deleteProject = async (req, res) => {
     if (!project) {
       return res.status(404).json({ message: "Project not found" });
     }
+    invalidateCache();
     res.json({ message: "Project deleted successfully", id: req.params.id });
   } catch (error) {
     res.status(400).json({ message: error.message });
