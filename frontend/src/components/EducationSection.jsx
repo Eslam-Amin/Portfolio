@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { EducationShimmer } from "./Shimmer";
-import { fetchEducation } from "../services/api";
+import { fetchEducation, fetchWithWarmupFallback } from "../services/api";
 import { education as fallbackEducation } from "../data/portfolioData";
 
 const EducationSection = ({
@@ -13,31 +13,26 @@ const EducationSection = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let isMounted = true;
     setLoading(true);
-
     const defaultList = Array.isArray(fallbackEducation)
       ? fallbackEducation
       : [fallbackEducation];
 
-    fetchEducation()
-      .then((data) => {
-        if (!isMounted) return;
-        setEducationList(
-          Array.isArray(data) && data.length > 0 ? data : defaultList
-        );
-      })
-      .catch((err) => {
-        console.warn("Education fallback used:", err.message);
-        if (isMounted) setEducationList(defaultList);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
+    const cleanup = fetchWithWarmupFallback(
+      fetchEducation,
+      "education",
+      defaultList,
+      {
+        onData: (data) => {
+          setEducationList(
+            Array.isArray(data) && data.length > 0 ? data : defaultList
+          );
+        },
+        onLoadingChange: setLoading
+      }
+    );
 
-    return () => {
-      isMounted = false;
-    };
+    return cleanup;
   }, []);
 
   return (
