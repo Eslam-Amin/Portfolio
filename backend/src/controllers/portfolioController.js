@@ -262,3 +262,16 @@ exports.deleteExperience = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// ==================== EDUCATION ====================
+
+// @desc    Get all education entries
+// @route   GET /api/education
+exports.getEducations = async (req, res) => {
+  try {
+    const educations = await Education.find().sort({ order: 1, createdAt: -1 });
+    res.json(educations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
