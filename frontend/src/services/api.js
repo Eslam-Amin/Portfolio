@@ -28,3 +28,13 @@ export const updateSkillsData = async (data) => {
   if (!response.ok) throw new Error("Failed to update skills");
   return response.json();
 };
+
+export const createItem = async (resource, data) => {
+  const response = await fetch(`${API_BASE_URL}/${resource}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+  if (!response.ok) throw new Error(`Failed to create ${resource}`);
+  return response.json();
+};
