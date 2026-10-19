@@ -1,12 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      try {
+        var savedTheme = localStorage.getItem("eslam_portfolio_theme") || "dark";
+        var meta = document.querySelector('meta[name="color-scheme"]');
+        if (meta) meta.content = savedTheme;
+        document.documentElement.classList.toggle("dark", savedTheme === "dark");
+      } catch (e) {}
+    </script>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <title>Eslam Amin - Backend Developer</title>
-
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   </head>
   <body>
     <div id="root"></div>
