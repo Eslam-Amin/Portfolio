@@ -25,6 +25,14 @@ export const fetchSkills = async () => {
   return response.json();
 };
 
+export const fetchWorkExperience = async () => {
+  const response = await fetch(`${API_BASE_URL}/experience`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch work experience: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 export const loginAdmin = async (username, password) => {
   const response = await fetch(`${API_BASE_URL}/auth/login`, {
     method: "POST",
