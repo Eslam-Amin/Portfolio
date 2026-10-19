@@ -89,3 +89,36 @@ export const EducationShimmer = () => (
     </div>
   </div>
 );
+
+export const ProjectsShimmer = () => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8" aria-busy="true">
+    {[1, 2, 3, 4, 5, 6].map((proj) => (
+      <div
+        key={proj}
+        className="bg-slate-800/40 p-6 rounded-lg border border-slate-700/70 flex flex-col space-y-4"
+      >
+        <div className="flex justify-between items-start">
+          <ShimmerBlock className="w-11 h-11 rounded-md" />
+          <div className="flex gap-2">
+            <ShimmerBlock className="w-9 h-9 rounded-full" />
+            <ShimmerBlock className="w-9 h-9 rounded-full" />
+          </div>
+        </div>
+        <div className="flex justify-between items-center gap-2">
+          <ShimmerBlock className="h-6 w-48" />
+          <ShimmerBlock className="h-4 w-16" />
+        </div>
+        <div className="space-y-2 py-2">
+          <ShimmerBlock className="h-4 w-full" />
+          <ShimmerBlock className="h-4 w-11/12" />
+          <ShimmerBlock className="h-4 w-4/5" />
+        </div>
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-700/50">
+          {[1, 2, 3, 4].map((tag) => (
+            <ShimmerBlock key={tag} className="h-6 w-16 rounded" />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
