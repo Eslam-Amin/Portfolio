@@ -2,12 +2,13 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 import {
-  personalData,
-  skills,
-  experience,
-  projects,
-  education
+  personalData as fallbackPersonalData,
+  skills as fallbackSkills,
+  experience as fallbackExperience,
+  projects as fallbackProjects,
+  education as fallbackEducation
 } from "./data/portfolioData";
+import { fetchPortfolioData } from "./services/api";
 
 import {
   Github,
@@ -25,56 +26,82 @@ import {
   Play,
   FileText
 } from "lucide-react";
-// import { WhatsAppIcon } from "./assets/icons";
 
-const SectionTitle = ({ children }) => {
+const ICON_MAP = {
+  Server,
+  Database,
+  Cpu,
+  Code,
+  Globe
+};
+
+const COLOR_STYLES = {
+  green: {
+    cardBorder: "hover:border-green-500/50",
+    headerText: "text-green-400",
+    badgeHover: "hover:text-green-400 hover:border-green-500/50"
+  },
+  purple: {
+    cardBorder: "hover:border-purple-500/50",
+    headerText: "text-purple-400",
+    badgeHover: "hover:text-purple-400 hover:border-purple-500/50"
+  },
+  blue: {
+    cardBorder: "hover:border-blue-500/50",
+    headerText: "text-blue-400",
+    badgeHover: "hover:text-blue-400 hover:border-blue-500/50"
+  }
+};
+
+const SectionTitle = ({ children, prompt = "root@eslam:~$" }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const elementRef = useRef(null);
+  const text = String(children || "");
 
   useEffect(() => {
+    const node = elementRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           setIsVisible(true);
         }
       },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
+      { threshold: 0.1 }
     );
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    if (node) {
+      observer.observe(node);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
   }, []);
 
   useEffect(() => {
-    if (isVisible && displayedText.length < children.length) {
+    setDisplayedText("");
+  }, [text]);
+
+  useEffect(() => {
+    if (isVisible && displayedText.length < text.length) {
       const timeoutId = setTimeout(() => {
-        setDisplayedText(children.slice(0, displayedText.length + 1));
-      }, 75); // Typing speed (lower is faster)
+        setDisplayedText(text.slice(0, displayedText.length + 1));
+      }, 75);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [isVisible, displayedText, children]);
+  }, [isVisible, displayedText, text]);
 
   return (
     <div ref={elementRef} className="mb-8">
       <h2 className="font-mono font-bold text-green-400 flex flex-wrap items-center">
-        {/* 1. Prompt: "root@eslam:~$" 
-            - Mobile: text-lg (18px) -> Bigger, more readable
-            - Laptop: text-2xl (24px) -> Classic size
-        */}
         <span className="text-purple-500 mr-2 whitespace-nowrap text-lg md:text-2xl">
-          root@eslam:~$
+          {prompt}
         </span>
 
-        {/* 2. Command + Cursor Wrapper */}
         <span className="text-lg md:text-2xl break-all">
           {displayedText}
           <span
