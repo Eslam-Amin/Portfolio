@@ -44,3 +44,30 @@ export const ExperienceShimmer = () => (
     ))}
   </div>
 );
+
+export const SkillsShimmer = () => (
+  <div
+    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    aria-busy="true"
+  >
+    {[1, 2, 3].map((card) => (
+      <div
+        key={card}
+        className="bg-slate-800/40 p-6 rounded border border-slate-700/70 space-y-4"
+      >
+        <div className="flex items-center gap-3">
+          <ShimmerBlock className="h-6 w-6 rounded" />
+          <ShimmerBlock className="h-6 w-36" />
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {[1, 2, 3, 4, 5, 6, 7].map((pill) => (
+            <ShimmerBlock
+              key={pill}
+              className={`h-7 ${pill % 2 === 0 ? "w-20" : "w-24"} rounded`}
+            />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
