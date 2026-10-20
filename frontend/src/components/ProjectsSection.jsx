@@ -1,11 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Code, Github, Globe, Play, Smartphone } from "lucide-react";
+import {
+  Code,
+  Github,
+  Globe,
+  Play,
+  Smartphone,
+  ChevronDown,
+  ChevronUp
+} from "lucide-react";
 import SectionTitle from "./SectionTitle";
 import { ProjectsShimmer } from "./Shimmer";
 import { fetchProjects, getFallbackSectionData } from "../services/api";
 import { projects as fallbackProjects } from "../data/portfolioData";
 import { usePortfolioContext } from "../context/PortfolioContext";
+
+const INITIAL_PROJECT_COUNT = 6;
+
+const getVisibleProjects = (projectList, isExpanded) => {
+  if (!Array.isArray(projectList)) return [];
+  return isExpanded
+    ? projectList
+    : projectList.slice(0, INITIAL_PROJECT_COUNT);
+};
 
 const ProjectsSection = () => {
   const { terminalPrompt, sectionTitles } = usePortfolioContext();
